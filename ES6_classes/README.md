@@ -1,27 +1,39 @@
-<img src="https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2019/12/817248fb77fb5c2cef3f.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20240716%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20240716T130159Z&amp;X-Amz-Expires=86400&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=c4c7773337e6a9fc37d4d3a71696d1150192d3955e4a8d1f0f25817b8bf5d385" alt="" loading="lazy" style=""></p>
+# ES6
+
+<p><img src="https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2019/12/08806026ef621f900121.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20240115%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20240115T085142Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=6da9c4cea2f386bbca832b3a65e9adb6c76fe8a676266a3e59ff006cbe360cfe" alt="" loading='lazy' style="" /></p>
 
 <h2>Resources</h2>
 
 <p><strong>Read or watch</strong>:</p>
 
 <ul>
-<li><a href="/rltoken/AJdJxuoO8o3hwpybQaFSDQ" title="Classes" target="_blank">Classes</a></li>
-<li><a href="/rltoken/jF42Fw5HNIPnFWKmDzVg1g" title="Metaprogramming" target="_blank">Metaprogramming</a></li>
+<li><a href="/rltoken/Q20cy-_XFufANSBCW0hvog" title="ECMAScript 6 - ECMAScript 2015" target="_blank">ECMAScript 6 - ECMAScript 2015</a></li>
+<li><a href="/rltoken/OHkTGVz-DLmzmrpDuWDYBw" title="Statements and declarations" target="_blank">Statements and declarations</a></li>
+<li><a href="/rltoken/5FxmFLP2qwTEo0puWUVHsQ" title="Arrow functions" target="_blank">Arrow functions</a></li>
+<li><a href="/rltoken/qZm6g37BqHVD9G96MLsnsg" title="Default parameters" target="_blank">Default parameters</a></li>
+<li><a href="/rltoken/qD9tUS00akyWTDU7MKUAuA" title="Rest parameter" target="_blank">Rest parameter</a></li>
+<li><a href="/rltoken/3bZ3Ro8W3n35UkOhAmXmgQ" title="Javascript ES6 — Iterables and Iterators" target="_blank">Javascript ES6 — Iterables and Iterators</a></li>
 </ul>
 
 <h2>Learning Objectives</h2>
 
-<p>At the end of this project, you are expected to be able to <a href="/rltoken/njFFGENoXPXVPrxCyuHqMg" title="explain to anyone" target="_blank">explain to anyone</a>, <strong>without the help of Google</strong>:</p>
+<p>At the end of this project, you are expected to be able to <a href="/rltoken/GT7hK6Qly9Rrureewp_arA" title="explain to anyone" target="_blank">explain to anyone</a>, <strong>without the help of Google</strong>:</p>
 
 <ul>
-<li>How to define a Class</li>
-<li>How to add methods to a class</li>
-<li>Why and how to add a static method to a class</li>
-<li>How to extend a class from another</li>
-<li>Metaprogramming and symbols</li>
+<li>What ES6 is</li>
+<li>New features introduced in ES6</li>
+<li>The difference between a constant and a variable</li>
+<li>Block-scoped variables</li>
+<li>Arrow functions and function parameters default to them</li>
+<li>Rest and spread function parameters</li>
+<li>String templating in ES6</li>
+<li>Object creation and their properties in ES6</li>
+<li>Iterators and for-of loops</li>
 </ul>
 
 <h2>Requirements</h2>
+
+<h3>General</h3>
 
 <ul>
 <li>All your files will be executed on Ubuntu 18.04 LTS using NodeJS 12.11.x</li>
@@ -29,9 +41,9 @@
 <li>All your files should end with a new line</li>
 <li>A <code>README.md</code> file, at the root of the folder of the project, is mandatory</li>
 <li>Your code should use the <code>js</code> extension</li>
-<li>Your code will be tested using <code>Jest</code> and the command <code>npm run test</code></li>
-<li>Your code will be verified against lint using ESLint</li>
-<li>Your code needs to pass all the tests and lint. You can verify the entire project running <code>npm run full-test</code></li>
+<li>Your code will be tested using the <a href="/rltoken/k18kRmC2WpcC_85dA44gBA" title="Jest Testing Framework" target="_blank">Jest Testing Framework</a></li>
+<li>Your code will be analyzed using the linter <a href="/rltoken/awTYlxNaMZw7HShPeC9D5w" title="ESLint" target="_blank">ESLint</a> along with specific rules that we&rsquo;ll provide</li>
+<li>All of your functions must be exported</li>
 </ul>
 
 <h2>Setup</h2>
@@ -66,27 +78,27 @@ $ npm -v
 <h3><code>package.json</code></h3>
 
 <details>
-<summary>
-Click to show/hide file contents</summary>
-<pre><code>
+<summary>Click to show/hide file contents</summary>
+<pre>
+<code>
 {
-  "scripts": {
-    "lint": "./node_modules/.bin/eslint",
-    "check-lint": "lint [0-9]*.js",
-    "dev": "npx babel-node",
-    "test": "jest",
-    "full-test": "./node_modules/.bin/eslint [0-9]*.js &amp;&amp; jest"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/node": "^7.8.0",
-    "eslint": "^6.4.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^22.17.0",
-    "jest": "^24.9.0"
-  }
+"scripts": {
+"lint": "./node_modules/.bin/eslint",
+"check-lint": "lint [0-9]*.js",
+"dev": "npx babel-node",
+"test": "jest",
+"full-test": "./node_modules/.bin/eslint [0-9]*.js && jest"
+},
+"devDependencies": {
+"@babel/core": "^7.6.0",
+"@babel/node": "^7.8.0",
+"@babel/preset-env": "^7.6.0",
+"eslint": "^6.4.0",
+"eslint-config-airbnb-base": "^14.0.0",
+"eslint-plugin-import": "^2.18.2",
+"eslint-plugin-jest": "^22.17.0",
+"jest": "^24.9.0"
+}
 }
 </code>
 </pre>
@@ -95,20 +107,20 @@ Click to show/hide file contents</summary>
 <h3><code>babel.config.js</code></h3>
 
 <details>
-<summary>
-Click to show/hide file contents</summary>
-<pre><code>
+<summary>Click to show/hide file contents</summary>
+<pre>
+<code>
 module.exports = {
-  presets: [
-    [
-      '@babel/preset-env',
-      {
-        targets: {
-          node: 'current',
-        },
-      },
-    ],
-  ],
+presets: [
+[
+'@babel/preset-env',
+{
+targets: {
+node: 'current',
+},
+},
+],
+],
 };
 </code>
 </pre>
@@ -118,1521 +130,705 @@ module.exports = {
 
 <details>
 <summary>Click to show/hide file contents</summary>
-<pre><code>
+<pre>
+<code>
 module.exports = {
-  env: {
-    browser: false,
-    es6: true,
-    jest: true,
-  },
-  extends: [
-    'airbnb-base',
-    'plugin:jest/all',
-  ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
-  },
-  plugins: ['jest'],
-  rules: {
-    'max-classes-per-file': 'off',
-    'no-underscore-dangle': 'off',
-    'no-console': 'off',
-    'no-shadow': 'off',
-    'no-restricted-syntax': [
-      'error',
-      'LabeledStatement',
-      'WithStatement',
-    ],
-  },
-  overrides:[
-    {
-      files: ['*.js'],
-      excludedFiles: 'babel.config.js',
-    }
-  ]
+env: {
+browser: false,
+es6: true,
+jest: true,
+},
+extends: [
+'airbnb-base',
+'plugin:jest/all',
+],
+globals: {
+Atomics: 'readonly',
+SharedArrayBuffer: 'readonly',
+},
+parserOptions: {
+ecmaVersion: 2018,
+sourceType: 'module',
+},
+plugins: ['jest'],
+rules: {
+'no-console': 'off',
+'no-shadow': 'off',
+'no-restricted-syntax': [
+'error',
+'LabeledStatement',
+'WithStatement',
+],
+},
+overrides:[
+{
+files: ['*.js'],
+excludedFiles: 'babel.config.js',
+}
+]
 };
 </code>
 </pre>
 </details>
 
-<h3>and…</h3>
+<h3>Finally&hellip;</h3>
 
-<p>Don’t forget to run <code>$ npm install</code> when you have the <code>package.json</code></p>
-
-  </div>
-</div>
+<p>Don&rsquo;t forget to run <code>npm install</code> from the terminal of your project folder to install all necessary project dependencies.</p>
 
 
+<details>
+<summary>Click to see: Tasks</summary>
 
+<h3 class="panel-title">
+0. Const or let?
+</h3>
 
-
-
-
-          <h2 class="gap">Tasks</h2>
-
-    <div data-role="task21481" data-position="1" id="task-num-0">
-      <div class="panel panel-default task-card " id="task-21481">
-  <span id="user_id" data-id="8687"></span>
-
-  <div class="panel-heading panel-heading-actions">
-    <h3 class="panel-title">
-      0. You used to attend a place like this at some point
-    </h3>
-
-    <div>
-        <span class="label label-info">
-          mandatory
-        </span>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <span id="user_id" data-id="8687"></span>
-
-    <!-- Progress vs Score -->
-
-    <!-- Task Body -->
-    <p>Implement a class named <code>ClassRoom</code>:</p>
+Modify</p>
 
 <ul>
-<li>Prototype: <code>export default class ClassRoom</code></li>
-<li>It should accept one attribute named <code>maxStudentsSize</code> (Number) and assigned to <code>_maxStudentsSize</code></li>
+<li>function <code>taskFirst</code> to instantiate variables using <code>const</code></li>
+<li>function <code>taskNext</code> to instantiate variables using <code>let</code></li>
 </ul>
 
-<pre><code>bob@dylan:~$ cat 0-main.js
-import ClassRoom from "./0-classroom.js";
+<pre><code>export function taskFirst() {
+var task = &#39;I prefer const when I can.&#39;;
+return task;
+}
 
-const room = new ClassRoom(10);
-console.log(room._maxStudentsSize)
+export function getLast() {
+return &#39; is okay&#39;;
+}
+
+export function taskNext() {
+var combination = &#39;But sometimes let&#39;;
+combination += getLast();
+
+return combination;
+}
+</code></pre>
+
+<p>Execution example:</p>
+
+<pre><code>bob@dylan:~$ cat 0-main.js
+import { taskFirst, taskNext } from &#39;./0-constants.js&#39;;
+
+console.log(`${taskFirst()} ${taskNext()}`);
 
 bob@dylan:~$
 bob@dylan:~$ npm run dev 0-main.js
-10
+I prefer const when I can. But sometimes let is okay
 bob@dylan:~$
 </code></pre>
 
-  </div>
-
-  <div class="list-group">
-    <!-- Task URLs -->
-
-    <!-- Technical information -->
-      <div class="list-group-item">
-        <p><strong>Repo:</strong></p>
-        <ul>
-          <li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
-            <li>Directory: <code>ES6_classes</code></li>
-            <li>File: <code>0-classroom.js</code></li>
-        </ul>
-      </div>
-
-    <!-- Self-paced manual review -->
-  </div>
-
-  <!-- Panel footer - Controls -->
-  <div class="panel-footer">
-      <div class="align-items-center d-flex justify-content-between">
-
-<div>
-
-  <button class="student-task-done-by btn btn-default btn-sm" data-task-id="21481" data-batch-id="558" data-toggle="modal" data-target="#task-21481-users-done-modal">
-    Help
-  </button>
-  <div class="modal fade users-done-modal" id="task-21481-users-done-modal" data-task-id="21481" data-batch-id="558">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Students who are done with "0. You used to attend a place like this at some point"</h4>
-        </div>
-        <div class="modal-body">
-            <div class="list-group">
-            </div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <div class="error"></div>
-        </div>
-        </div>
-    </div>
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
-
-
-    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#sandboxes-modal"><i aria-hidden="true" class="fa fa-terminal "></i><span>Get a sandbox</span></button>
-
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
+<ul>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>0-constants.js</code></li>
+</ul>
 </div>
 
+<h3 class="panel-title">
+1. Block Scope
+</h3>
 
-        <div class="fs-4">
-            <strong class="text-primary">
-              <span id="task-21481-score-info-score">0</span>/2
-            </strong>
-            <span class="text-muted">pts</span>
-        </div>
-      </div>
+Given what you&rsquo;ve read about <code>var</code> and hoisting, modify the variables inside the function <code>taskBlock</code> so that the variables aren&rsquo;t overwritten inside the conditional block.</p>
 
+<pre><code>export default function taskBlock(trueOrFalse) {
+var task = false;
+var task2 = true;
 
-  </div>
-</div>
+if (trueOrFalse) {
+var task = true;
+var task2 = false;
+}
 
-    </div>
-    <div data-role="task21482" data-position="2" id="task-num-1">
-      <div class="panel panel-default task-card " id="task-21482">
-  <span id="user_id" data-id="8687"></span>
+return [task, task2];
+}
+</code></pre>
 
-  <div class="panel-heading panel-heading-actions">
-    <h3 class="panel-title">
-      1. Let's make some classrooms
-    </h3>
-
-    <div>
-        <span class="label label-info">
-          mandatory
-        </span>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <span id="user_id" data-id="8687"></span>
-
-    <!-- Progress vs Score -->
-
-    <!-- Task Body -->
-    <p>Import the <code>ClassRoom</code> class from <code>0-classroom.js</code>. </p>
-
-<p>Implement a function named <code>initializeRooms</code>. It should return an array of 3 <code>ClassRoom</code> objects with the sizes 19, 20, and 34 (in this order).</p>
+<p>Execution:</p>
 
 <pre><code>bob@dylan:~$ cat 1-main.js
-import initializeRooms from './1-make_classrooms.js';
+import taskBlock from &#39;./1-block-scoped.js&#39;;
 
-console.log(initializeRooms());
-
+console.log(taskBlock(true));
+console.log(taskBlock(false));
 bob@dylan:~$
 bob@dylan:~$ npm run dev 1-main.js
-[
-  ClassRoom { _maxStudentsSize: 19 },
-  ClassRoom { _maxStudentsSize: 20 },
-  ClassRoom { _maxStudentsSize: 34 }
-]
+[ false, true ]
+[ false, true ]
 bob@dylan:~$
 </code></pre>
 
-  </div>
-
-  <div class="list-group">
-    <!-- Task URLs -->
-
-    <!-- Technical information -->
-      <div class="list-group-item">
-        <p><strong>Repo:</strong></p>
-        <ul>
-          <li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
-            <li>Directory: <code>ES6_classes</code></li>
-            <li>File: <code>1-make_classrooms.js</code></li>
-        </ul>
-      </div>
-
-    <!-- Self-paced manual review -->
-  </div>
-
-  <!-- Panel footer - Controls -->
-  <div class="panel-footer">
-      <div class="align-items-center d-flex justify-content-between">
-
-<div>
-
-  <button class="student-task-done-by btn btn-default btn-sm" data-task-id="21482" data-batch-id="558" data-toggle="modal" data-target="#task-21482-users-done-modal">
-    Help
-  </button>
-  <div class="modal fade users-done-modal" id="task-21482-users-done-modal" data-task-id="21482" data-batch-id="558">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Students who are done with "1. Let's make some classrooms"</h4>
-        </div>
-        <div class="modal-body">
-            <div class="list-group">
-            </div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <div class="error"></div>
-        </div>
-        </div>
-    </div>
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
-
-
-    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#sandboxes-modal"><i aria-hidden="true" class="fa fa-terminal "></i><span>Get a sandbox</span></button>
-
-</div>
-
-
-        <div class="fs-4">
-            <strong class="text-primary">
-              <span id="task-21482-score-info-score">0</span>/3
-            </strong>
-            <span class="text-muted">pts</span>
-        </div>
-      </div>
-
-
-  </div>
-</div>
-
-    </div>
-    <div data-role="task21483" data-position="3" id="task-num-2">
-      <div class="panel panel-default task-card " id="task-21483">
-  <span id="user_id" data-id="8687"></span>
-
-  <div class="panel-heading panel-heading-actions">
-    <h3 class="panel-title">
-      2. A Course, Getters, and Setters
-    </h3>
-
-    <div>
-        <span class="label label-info">
-          mandatory
-        </span>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <span id="user_id" data-id="8687"></span>
-
-    <!-- Progress vs Score -->
-
-    <!-- Task Body -->
-    <p>Implement a class named <code>HolbertonCourse</code>:</p>
-
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
 <ul>
-<li>Constructor attributes:
-
-<ul>
-<li><code>name</code> (String)</li>
-<li><code>length</code> (Number)</li>
-<li><code>students</code> (array of Strings)</li>
-</ul></li>
-<li>Make sure to verify the type of attributes during object creation</li>
-<li>Each attribute must be stored in an “underscore” attribute version (ex: <code>name</code> is stored in <code>_name</code>)</li>
-<li>Implement a getter and setter for each attribute. </li>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>1-block-scoped.js</code></li>
 </ul>
+</div>
+
+<h3 class="panel-title">
+2. Arrow functions
+</h3>
+
+Rewrite the following standard function to use ES6&rsquo;s arrow syntax of the function <code>add</code> (it will be an anonymous function after)</p>
+
+<pre><code>export default function getNeighborhoodsList() {
+this.sanFranciscoNeighborhoods = [&#39;SOMA&#39;, &#39;Union Square&#39;];
+
+const self = this;
+this.addNeighborhood = function add(newNeighborhood) {
+self.sanFranciscoNeighborhoods.push(newNeighborhood);
+return self.sanFranciscoNeighborhoods;
+};
+}
+</code></pre>
+
+<p>Execution:</p>
 
 <pre><code>bob@dylan:~$ cat 2-main.js
-import HolbertonCourse from "./2-hbtn_course.js";
+import getNeighborhoodsList from &#39;./2-arrow.js&#39;;
 
-const c1 = new HolbertonCourse("ES6", 1, ["Bob", "Jane"])
-console.log(c1.name);
-c1.name = "Python 101";
-console.log(c1);
-
-try {
-    c1.name = 12;
-}
-catch(err) {
-    console.log(err);
-}
-
-try {
-    const c2 = new HolbertonCourse("ES6", "1", ["Bob", "Jane"]);
-}
-catch(err) {
-    console.log(err);
-}
-
+const neighborhoodsList = new getNeighborhoodsList();
+const res = neighborhoodsList.addNeighborhood(&#39;Noe Valley&#39;);
+console.log(res);
 bob@dylan:~$
 bob@dylan:~$ npm run dev 2-main.js
-ES6
-HolbertonCourse {
-  _name: 'Python 101',
-  _length: 1,
-  _students: [ 'Bob', 'Jane' ]
-}
-TypeError: Name must be a string
-    ...
-TypeError: Length must be a number
-    ...
+[ &#39;SOMA&#39;, &#39;Union Square&#39;, &#39;Noe Valley&#39; ]
 bob@dylan:~$
 </code></pre>
 
-  </div>
-
-  <div class="list-group">
-    <!-- Task URLs -->
-
-    <!-- Technical information -->
-      <div class="list-group-item">
-        <p><strong>Repo:</strong></p>
-        <ul>
-          <li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
-            <li>Directory: <code>ES6_classes</code></li>
-            <li>File: <code>2-hbtn_course.js</code></li>
-        </ul>
-      </div>
-
-    <!-- Self-paced manual review -->
-  </div>
-
-  <!-- Panel footer - Controls -->
-  <div class="panel-footer">
-      <div class="align-items-center d-flex justify-content-between">
-
-<div>
-
-  <button class="student-task-done-by btn btn-default btn-sm" data-task-id="21483" data-batch-id="558" data-toggle="modal" data-target="#task-21483-users-done-modal">
-    Help
-  </button>
-  <div class="modal fade users-done-modal" id="task-21483-users-done-modal" data-task-id="21483" data-batch-id="558">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Students who are done with "2. A Course, Getters, and Setters"</h4>
-        </div>
-        <div class="modal-body">
-            <div class="list-group">
-            </div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <div class="error"></div>
-        </div>
-        </div>
-    </div>
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
-
-
-    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#sandboxes-modal"><i aria-hidden="true" class="fa fa-terminal "></i><span>Get a sandbox</span></button>
-
-</div>
-
-
-        <div class="fs-4">
-            <strong class="text-primary">
-              <span id="task-21483-score-info-score">0</span>/5
-            </strong>
-            <span class="text-muted">pts</span>
-        </div>
-      </div>
-
-
-  </div>
-</div>
-
-    </div>
-    <div data-role="task21484" data-position="4" id="task-num-3">
-      <div class="panel panel-default task-card " id="task-21484">
-  <span id="user_id" data-id="8687"></span>
-
-  <div class="panel-heading panel-heading-actions">
-    <h3 class="panel-title">
-      3. Methods, static methods, computed methods names..... MONEY
-    </h3>
-
-    <div>
-        <span class="label label-info">
-          mandatory
-        </span>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <span id="user_id" data-id="8687"></span>
-
-    <!-- Progress vs Score -->
-
-    <!-- Task Body -->
-    <p>Implement a class named <code>Currency</code>:</p>
-
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
 <ul>
-<li>- Constructor attributes:
-
-<ul>
-<li><code>code</code> (String)</li>
-<li><code>name</code> (String)</li>
-</ul></li>
-<li>Each attribute must be stored in an “underscore” attribute version (ex: <code>name</code> is stored in <code>_name</code>)</li>
-<li>Implement a getter and setter for each attribute. </li>
-<li>Implement a method named <code>displayFullCurrency</code> that will return the attributes in the following format <code>name (code)</code>.</li>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>2-arrow.js</code></li>
 </ul>
+</div>
+
+<h3 class="panel-title">
+3. Parameter defaults
+</h3>
+
+Condense the internals of the following function to 1 line - without changing the name of each function/variable. </p>
+
+<p><em>Hint:</em> The key here to define default parameter values for the function parameters.</p>
+
+<pre><code>export default function getSumOfHoods(initialNumber, expansion1989, expansion2019) {
+if (expansion1989 === undefined) {
+expansion1989 = 89;
+}
+
+if (expansion2019 === undefined) {
+expansion2019 = 19;
+}
+return initialNumber + expansion1989 + expansion2019;
+}
+</code></pre>
+
+<p>Execution:</p>
 
 <pre><code>bob@dylan:~$ cat 3-main.js
-import Currency from "./3-currency.js";
+import getSumOfHoods from &#39;./3-default-parameter.js&#39;;
 
-const dollar = new Currency('$', 'Dollars');
-console.log(dollar.displayFullCurrency());
-
+console.log(getSumOfHoods(34));
+console.log(getSumOfHoods(34, 3));
+console.log(getSumOfHoods(34, 3, 4));
 bob@dylan:~$
 bob@dylan:~$ npm run dev 3-main.js
-Dollars ($)
+142
+56
+41
 bob@dylan:~$
 </code></pre>
 
-  </div>
-
-  <div class="list-group">
-    <!-- Task URLs -->
-
-    <!-- Technical information -->
-      <div class="list-group-item">
-        <p><strong>Repo:</strong></p>
-        <ul>
-          <li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
-            <li>Directory: <code>ES6_classes</code></li>
-            <li>File: <code>3-currency.js</code></li>
-        </ul>
-      </div>
-
-    <!-- Self-paced manual review -->
-  </div>
-
-  <!-- Panel footer - Controls -->
-  <div class="panel-footer">
-      <div class="align-items-center d-flex justify-content-between">
-
-<div>
-
-  <button class="student-task-done-by btn btn-default btn-sm" data-task-id="21484" data-batch-id="558" data-toggle="modal" data-target="#task-21484-users-done-modal">
-    Help
-  </button>
-  <div class="modal fade users-done-modal" id="task-21484-users-done-modal" data-task-id="21484" data-batch-id="558">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Students who are done with "3. Methods, static methods, computed methods names..... MONEY"</h4>
-        </div>
-        <div class="modal-body">
-            <div class="list-group">
-            </div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <div class="error"></div>
-        </div>
-        </div>
-    </div>
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
-
-
-    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#sandboxes-modal"><i aria-hidden="true" class="fa fa-terminal "></i><span>Get a sandbox</span></button>
-
-</div>
-
-
-        <div class="fs-4">
-            <strong class="text-primary">
-              <span id="task-21484-score-info-score">0</span>/3
-            </strong>
-            <span class="text-muted">pts</span>
-        </div>
-      </div>
-
-
-  </div>
-</div>
-
-    </div>
-    <div data-role="task21485" data-position="5" id="task-num-4">
-      <div class="panel panel-default task-card " id="task-21485">
-  <span id="user_id" data-id="8687"></span>
-
-  <div class="panel-heading panel-heading-actions">
-    <h3 class="panel-title">
-      4. Pricing
-    </h3>
-
-    <div>
-        <span class="label label-info">
-          mandatory
-        </span>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <span id="user_id" data-id="8687"></span>
-
-    <!-- Progress vs Score -->
-
-    <!-- Task Body -->
-    <p>Import the class <code>Currency</code> from <code>3-currency.js</code></p>
-
-<p>Implement a class named <code>Pricing</code>:</p>
-
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
 <ul>
-<li>Constructor attributes:
-
-<ul>
-<li><code>amount</code> (Number)</li>
-<li><code>currency</code> (Currency)</li>
-</ul></li>
-<li>Each attribute must be stored in an “underscore” attribute version (ex: <code>name</code> is stored in <code>_name</code>)</li>
-<li>Implement a getter and setter for each attribute. </li>
-<li>Implement a method named <code>displayFullPrice</code> that returns the attributes in the following format <code>amount currency_name (currency_code)</code>.</li>
-<li>Implement a static method named <code>convertPrice</code>. It should accept two arguments: <code>amount</code> (Number), <code>conversionRate</code> (Number). The function should return the amount multiplied by the conversion rate.</li>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>3-default-parameter.js</code></li>
 </ul>
+</div>
+
+<h3 class="panel-title">
+4. Rest parameter syntax for functions
+</h3>
+
+Modify the following function to return the number of arguments passed to it using the rest parameter syntax</p>
+
+<pre><code>export default function returnHowManyArguments() {
+
+}
+</code></pre>
+
+<p>Example:</p>
+
+<pre><code>&gt; returnHowManyArguments(&quot;Hello&quot;, &quot;Holberton&quot;, 2020);
+3
+&gt;
+</code></pre>
+
+<p>Execution:</p>
 
 <pre><code>bob@dylan:~$ cat 4-main.js
-import Pricing from './4-pricing.js';
-import Currency from './3-currency.js';
+import returnHowManyArguments from &#39;./4-rest-parameter.js&#39;;
 
-const p = new Pricing(100, new Currency("EUR", "Euro"))
-console.log(p);
-console.log(p.displayFullPrice());
-
+console.log(returnHowManyArguments(&quot;one&quot;));
+console.log(returnHowManyArguments(&quot;one&quot;, &quot;two&quot;, 3, &quot;4th&quot;));
 bob@dylan:~$
 bob@dylan:~$ npm run dev 4-main.js
-Pricing {
-  _amount: 100,
-  _currency: Currency { _code: 'EUR', _name: 'Euro' }
-}
-100 Euro (EUR)
+1
+4
 bob@dylan:~$
 </code></pre>
 
-  </div>
-
-  <div class="list-group">
-    <!-- Task URLs -->
-
-    <!-- Technical information -->
-      <div class="list-group-item">
-        <p><strong>Repo:</strong></p>
-        <ul>
-          <li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
-            <li>Directory: <code>ES6_classes</code></li>
-            <li>File: <code>4-pricing.js</code></li>
-        </ul>
-      </div>
-
-    <!-- Self-paced manual review -->
-  </div>
-
-  <!-- Panel footer - Controls -->
-  <div class="panel-footer">
-      <div class="align-items-center d-flex justify-content-between">
-
-<div>
-
-  <button class="student-task-done-by btn btn-default btn-sm" data-task-id="21485" data-batch-id="558" data-toggle="modal" data-target="#task-21485-users-done-modal">
-    Help
-  </button>
-  <div class="modal fade users-done-modal" id="task-21485-users-done-modal" data-task-id="21485" data-batch-id="558">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Students who are done with "4. Pricing"</h4>
-        </div>
-        <div class="modal-body">
-            <div class="list-group">
-            </div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <div class="error"></div>
-        </div>
-        </div>
-    </div>
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
-
-
-    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#sandboxes-modal"><i aria-hidden="true" class="fa fa-terminal "></i><span>Get a sandbox</span></button>
-
-</div>
-
-
-        <div class="fs-4">
-            <strong class="text-primary">
-              <span id="task-21485-score-info-score">0</span>/3
-            </strong>
-            <span class="text-muted">pts</span>
-        </div>
-      </div>
-
-
-  </div>
-</div>
-
-    </div>
-    <div data-role="task21486" data-position="6" id="task-num-5">
-      <div class="panel panel-default task-card " id="task-21486">
-  <span id="user_id" data-id="8687"></span>
-
-  <div class="panel-heading panel-heading-actions">
-    <h3 class="panel-title">
-      5. A Building
-    </h3>
-
-    <div>
-        <span class="label label-info">
-          mandatory
-        </span>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <span id="user_id" data-id="8687"></span>
-
-    <!-- Progress vs Score -->
-
-    <!-- Task Body -->
-    <p>Implement a class named <code>Building</code>:</p>
-
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
 <ul>
-<li>Constructor attributes:
-
-<ul>
-<li><code>sqft</code> (Number)</li>
-</ul></li>
-<li>Each attribute must be stored in an “underscore” attribute version (ex: <code>name</code> is stored in <code>_name</code>)</li>
-<li>Implement a getter for each attribute.</li>
-<li>Consider this class as an abstract class. And make sure that any class that extends from it should implement a method named <code>evacuationWarningMessage</code>.
-
-<ul>
-<li>If a class that extends from it does not have a <code>evacuationWarningMessage</code> method, throw an error with the message <code>Class extending Building must override evacuationWarningMessage</code></li>
-</ul></li>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>4-rest-parameter.js</code></li>
 </ul>
+</div>
+
+<h3 class="panel-title">
+5. The wonders of spread syntax
+</h3>
+
+Using spread syntax, concatenate 2 arrays and each character of a string by modifying the function below. Your function body should be one line long.</p>
+
+<pre><code>export default function concatArrays(array1, array2, string) {
+}
+</code></pre>
+
+<p>Execution:</p>
 
 <pre><code>bob@dylan:~$ cat 5-main.js
-import Building from './5-building.js';
+import concatArrays from &#39;./5-spread-operator.js&#39;;
 
-const b = new Building(100);
-console.log(b);
-
-class TestBuilding extends Building {}
-
-try {
-    new TestBuilding(200)
-}
-catch(err) {
-    console.log(err);
-}
+console.log(concatArrays([&#39;a&#39;, &#39;b&#39;], [&#39;c&#39;, &#39;d&#39;], &#39;Hello&#39;));
 
 bob@dylan:~$
 bob@dylan:~$ npm run dev 5-main.js
-Building { _sqft: 100 }
-Error: Class extending Building must override evacuationWarningMessage
-    ...
+[
+&#39;a&#39;, &#39;b&#39;, &#39;c&#39;,
+&#39;d&#39;, &#39;H&#39;, &#39;e&#39;,
+&#39;l&#39;, &#39;l&#39;, &#39;o&#39;
+]
 bob@dylan:~$
 </code></pre>
 
-  </div>
-
-  <div class="list-group">
-    <!-- Task URLs -->
-
-    <!-- Technical information -->
-      <div class="list-group-item">
-        <p><strong>Repo:</strong></p>
-        <ul>
-          <li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
-            <li>Directory: <code>ES6_classes</code></li>
-            <li>File: <code>5-building.js</code></li>
-        </ul>
-      </div>
-
-    <!-- Self-paced manual review -->
-  </div>
-
-  <!-- Panel footer - Controls -->
-  <div class="panel-footer">
-      <div class="align-items-center d-flex justify-content-between">
-
-<div>
-
-  <button class="student-task-done-by btn btn-default btn-sm" data-task-id="21486" data-batch-id="558" data-toggle="modal" data-target="#task-21486-users-done-modal">
-    Help
-  </button>
-  <div class="modal fade users-done-modal" id="task-21486-users-done-modal" data-task-id="21486" data-batch-id="558">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Students who are done with "5. A Building"</h4>
-        </div>
-        <div class="modal-body">
-            <div class="list-group">
-            </div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <div class="error"></div>
-        </div>
-        </div>
-    </div>
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
-
-
-    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#sandboxes-modal"><i aria-hidden="true" class="fa fa-terminal "></i><span>Get a sandbox</span></button>
-
-</div>
-
-
-        <div class="fs-4">
-            <strong class="text-primary">
-              <span id="task-21486-score-info-score">0</span>/3
-            </strong>
-            <span class="text-muted">pts</span>
-        </div>
-      </div>
-
-
-  </div>
-</div>
-
-    </div>
-    <div data-role="task21487" data-position="7" id="task-num-6">
-      <div class="panel panel-default task-card " id="task-21487">
-  <span id="user_id" data-id="8687"></span>
-
-  <div class="panel-heading panel-heading-actions">
-    <h3 class="panel-title">
-      6. Inheritance
-    </h3>
-
-    <div>
-        <span class="label label-info">
-          mandatory
-        </span>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <span id="user_id" data-id="8687"></span>
-
-    <!-- Progress vs Score -->
-
-    <!-- Task Body -->
-    <p>Import <code>Building</code> from <code>5-building.js</code>.</p>
-
-<p>Implement a class named <code>SkyHighBuilding</code> that extends from <code>Building</code>:</p>
-
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
 <ul>
-<li>Constructor attributes:
-
-<ul>
-<li><code>sqft</code> (Number) (must be assigned to the parent class <code>Building</code>)</li>
-<li><code>floors</code> (Number)</li>
-</ul></li>
-<li>Each attribute must be stored in an “underscore” attribute version (ex: <code>name</code> is stored in <code>_name</code>)</li>
-<li>Implement a getter for each attribute. </li>
-<li>Override the method named <code>evacuationWarningMessage</code> and return the following string <code>Evacuate slowly the NUMBER_OF_FLOORS floors</code>.</li>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code> 5-spread-operator.js</code></li>
 </ul>
+</div>
+
+<h3 class="panel-title">
+6. Take advantage of template literals
+</h3>
+
+Rewrite the return statement to use a template literal so you can the substitute the variables you&rsquo;ve defined.</p>
+
+<pre><code>export default function getSanFranciscoDescription() {
+const year = 2017;
+const budget = {
+income: &#39;$119,868&#39;,
+gdp: &#39;$154.2 billion&#39;,
+capita: &#39;$178,479&#39;,
+};
+
+return &#39;As of &#39; + year + &#39;, it was the seventh-highest income county in the United States&#39;
+/ &#39;, with a per capita personal income of &#39; + budget.income + &#39;. As of 2015, San Francisco&#39;
+/ &#39; proper had a GDP of &#39; + budget.gdp + &#39;, and a GDP per capita of &#39; + budget.capita + &#39;.&#39;;
+}
+</code></pre>
+
+<p>Execution:</p>
 
 <pre><code>bob@dylan:~$ cat 6-main.js
-import SkyHighBuilding from './6-sky_high.js';
+import getSanFranciscoDescription from &#39;./6-string-interpolation.js&#39;;
 
-const building = new SkyHighBuilding(140, 60);
-console.log(building.sqft);
-console.log(building.floors);
-console.log(building.evacuationWarningMessage());
+console.log(getSanFranciscoDescription());
 
 bob@dylan:~$
 bob@dylan:~$ npm run dev 6-main.js
-140
-60
-Evacuate slowly the 60 floors
+As of 2017, it was the seventh-highest income county in the United States, with a per capita personal income of $119,868. As of 2015, San Francisco proper had a GDP of $154.2 billion, and a GDP per capita of $178,479.
 bob@dylan:~$
 </code></pre>
 
-  </div>
-
-  <div class="list-group">
-    <!-- Task URLs -->
-
-    <!-- Technical information -->
-      <div class="list-group-item">
-        <p><strong>Repo:</strong></p>
-        <ul>
-          <li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
-            <li>Directory: <code>ES6_classes</code></li>
-            <li>File: <code>6-sky_high.js</code></li>
-        </ul>
-      </div>
-
-    <!-- Self-paced manual review -->
-  </div>
-
-  <!-- Panel footer - Controls -->
-  <div class="panel-footer">
-      <div class="align-items-center d-flex justify-content-between">
-
-<div>
-
-  <button class="student-task-done-by btn btn-default btn-sm" data-task-id="21487" data-batch-id="558" data-toggle="modal" data-target="#task-21487-users-done-modal">
-    Help
-  </button>
-  <div class="modal fade users-done-modal" id="task-21487-users-done-modal" data-task-id="21487" data-batch-id="558">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Students who are done with "6. Inheritance"</h4>
-        </div>
-        <div class="modal-body">
-            <div class="list-group">
-            </div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <div class="error"></div>
-        </div>
-        </div>
-    </div>
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
-
-
-    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#sandboxes-modal"><i aria-hidden="true" class="fa fa-terminal "></i><span>Get a sandbox</span></button>
-
-</div>
-
-
-        <div class="fs-4">
-            <strong class="text-primary">
-              <span id="task-21487-score-info-score">0</span>/2
-            </strong>
-            <span class="text-muted">pts</span>
-        </div>
-      </div>
-
-
-  </div>
-</div>
-
-    </div>
-    <div data-role="task21488" data-position="8" id="task-num-7">
-      <div class="panel panel-default task-card " id="task-21488">
-  <span id="user_id" data-id="8687"></span>
-
-  <div class="panel-heading panel-heading-actions">
-    <h3 class="panel-title">
-      7. Airport
-    </h3>
-
-    <div>
-        <span class="label label-info">
-          mandatory
-        </span>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <span id="user_id" data-id="8687"></span>
-
-    <!-- Progress vs Score -->
-
-    <!-- Task Body -->
-    <p>Implement a class named <code>Airport</code>:</p>
-
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
 <ul>
-<li>Constructor attributes:
-
-<ul>
-<li><code>name</code> (String)</li>
-<li><code>code</code> (String)</li>
-</ul></li>
-<li>Each attribute must be stored in an “underscore” attribute version (ex: <code>name</code> is stored in <code>_name</code>)</li>
-<li>The default string description of the class should return the airport <code>code</code> (example below).</li>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>6-string-interpolation.js</code></li>
 </ul>
+</div>
+
+<h3 class="panel-title">
+7. Object property value shorthand syntax
+</h3>
+
+Notice how the keys and the variable names are the same?</p>
+
+<p>Modify the following function&rsquo;s <code>budget</code> object to simply use the keyname instead.</p>
+
+<pre><code>export default function getBudgetObject(income, gdp, capita) {
+const budget = {
+income: income,
+gdp: gdp,
+capita: capita,
+};
+
+return budget;
+}
+</code></pre>
+
+<p>Execution:</p>
 
 <pre><code>bob@dylan:~$ cat 7-main.js
-import Airport from "./7-airport.js";
+import getBudgetObject from &#39;./7-getBudgetObject.js&#39;;
 
-const airportSF = new Airport('San Francisco Airport', 'SFO');
-console.log(airportSF);
-console.log(airportSF.toString());
+console.log(getBudgetObject(400, 700, 900));
 
 bob@dylan:~$
 bob@dylan:~$ npm run dev 7-main.js
-Airport [SFO] { _name: 'San Francisco Airport', _code: 'SFO' }
-[object SFO]
+{ income: 400, gdp: 700, capita: 900 }
 bob@dylan:~$
 </code></pre>
 
-  </div>
-
-  <div class="list-group">
-    <!-- Task URLs -->
-
-    <!-- Technical information -->
-      <div class="list-group-item">
-        <p><strong>Repo:</strong></p>
-        <ul>
-          <li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
-            <li>Directory: <code>ES6_classes</code></li>
-            <li>File: <code>7-airport.js</code></li>
-        </ul>
-      </div>
-
-    <!-- Self-paced manual review -->
-  </div>
-
-  <!-- Panel footer - Controls -->
-  <div class="panel-footer">
-      <div class="align-items-center d-flex justify-content-between">
-
-<div>
-
-  <button class="student-task-done-by btn btn-default btn-sm" data-task-id="21488" data-batch-id="558" data-toggle="modal" data-target="#task-21488-users-done-modal">
-    Help
-  </button>
-  <div class="modal fade users-done-modal" id="task-21488-users-done-modal" data-task-id="21488" data-batch-id="558">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Students who are done with "7. Airport"</h4>
-        </div>
-        <div class="modal-body">
-            <div class="list-group">
-            </div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <div class="error"></div>
-        </div>
-        </div>
-    </div>
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
-
-
-    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#sandboxes-modal"><i aria-hidden="true" class="fa fa-terminal "></i><span>Get a sandbox</span></button>
-
-</div>
-
-
-        <div class="fs-4">
-            <strong class="text-primary">
-              <span id="task-21488-score-info-score">0</span>/2
-            </strong>
-            <span class="text-muted">pts</span>
-        </div>
-      </div>
-
-
-  </div>
-</div>
-
-    </div>
-    <div data-role="task21489" data-position="9" id="task-num-8">
-      <div class="panel panel-default task-card " id="task-21489">
-  <span id="user_id" data-id="8687"></span>
-
-  <div class="panel-heading panel-heading-actions">
-    <h3 class="panel-title">
-      8. Primitive - Holberton Class
-    </h3>
-
-    <div>
-        <span class="label label-info">
-          mandatory
-        </span>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <span id="user_id" data-id="8687"></span>
-
-    <!-- Progress vs Score -->
-
-    <!-- Task Body -->
-    <p>Implement a class named <code>HolbertonClass</code>:</p>
-
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
 <ul>
-<li>Constructor attributes:
-
-<ul>
-<li><code>size</code> (Number)</li>
-<li><code>location</code> (String)</li>
-</ul></li>
-<li>Each attribute must be stored in an “underscore” attribute version (ex: <code>name</code> is stored in <code>_name</code>)</li>
-<li>When the class is cast into a <code>Number</code>, it should return the size. </li>
-<li>When the class is cast into a <code>String</code>, it should return the location.</li>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>7-getBudgetObject.js</code></li>
 </ul>
+</div>
+
+<h3 class="panel-title">
+8. No need to create empty objects before adding in properties
+</h3>
+
+Rewrite the <code>getBudgetForCurrentYear</code> function to use ES6 computed property names on the <code>budget</code> object</p>
+
+<pre><code>function getCurrentYear() {
+const date = new Date();
+return date.getFullYear();
+}
+
+export default function getBudgetForCurrentYear(income, gdp, capita) {
+const budget = {};
+
+budget[`income-${getCurrentYear()}`] = income;
+budget[`gdp-${getCurrentYear()}`] = gdp;
+budget[`capita-${getCurrentYear()}`] = capita;
+
+return budget;
+}
+</code></pre>
+
+<p>Execution:</p>
 
 <pre><code>bob@dylan:~$ cat 8-main.js
-import HolbertonClass from "./8-hbtn_class.js";
+import getBudgetForCurrentYear from &#39;./8-getBudgetCurrentYear.js&#39;;
 
-const hc = new HolbertonClass(12, "Mezzanine")
-console.log(Number(hc));
-console.log(String(hc));
+console.log(getBudgetForCurrentYear(2100, 5200, 1090));
 
 bob@dylan:~$
 bob@dylan:~$ npm run dev 8-main.js
-12
-Mezzanine
+{ &#39;income-2021&#39;: 2100, &#39;gdp-2021&#39;: 5200, &#39;capita-2021&#39;: 1090 }
 bob@dylan:~$
 </code></pre>
 
-  </div>
-
-  <div class="list-group">
-    <!-- Task URLs -->
-
-    <!-- Technical information -->
-      <div class="list-group-item">
-        <p><strong>Repo:</strong></p>
-        <ul>
-          <li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
-            <li>Directory: <code>ES6_classes</code></li>
-            <li>File: <code>8-hbtn_class.js</code></li>
-        </ul>
-      </div>
-
-    <!-- Self-paced manual review -->
-  </div>
-
-  <!-- Panel footer - Controls -->
-  <div class="panel-footer">
-      <div class="align-items-center d-flex justify-content-between">
-
-<div>
-
-  <button class="student-task-done-by btn btn-default btn-sm" data-task-id="21489" data-batch-id="558" data-toggle="modal" data-target="#task-21489-users-done-modal">
-    Help
-  </button>
-  <div class="modal fade users-done-modal" id="task-21489-users-done-modal" data-task-id="21489" data-batch-id="558">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Students who are done with "8. Primitive - Holberton Class"</h4>
-        </div>
-        <div class="modal-body">
-            <div class="list-group">
-            </div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <div class="error"></div>
-        </div>
-        </div>
-    </div>
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
-
-
-    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#sandboxes-modal"><i aria-hidden="true" class="fa fa-terminal "></i><span>Get a sandbox</span></button>
-
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
+<ul>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>8-getBudgetCurrentYear.js</code></li>
+</ul>
 </div>
 
+<h3 class="panel-title">
+9. ES6 method properties
+</h3>
 
-        <div class="fs-4">
-            <strong class="text-primary">
-              <span id="task-21489-score-info-score">0</span>/3
-            </strong>
-            <span class="text-muted">pts</span>
-        </div>
-      </div>
+Rewrite <code>getFullBudgetObject</code> to use ES6 method properties in the <code>fullBudget</code> object</p>
 
+<pre><code>import getBudgetObject from &#39;./7-getBudgetObject.js&#39;;
 
-  </div>
-</div>
+export default function getFullBudgetObject(income, gdp, capita) {
+const budget = getBudgetObject(income, gdp, capita);
+const fullBudget = {
+...budget,
+getIncomeInDollars: function (income) {
+return `$${income}`;
+},
+getIncomeInEuros: function (income) {
+return `${income} euros`;
+},
+};
 
-    </div>
-    <div data-role="task21490" data-position="10" id="task-num-9">
-      <div class="panel panel-default task-card " id="task-21490">
-  <span id="user_id" data-id="8687"></span>
-
-  <div class="panel-heading panel-heading-actions">
-    <h3 class="panel-title">
-      9. Hoisting
-    </h3>
-
-    <div>
-        <span class="label label-info">
-          mandatory
-        </span>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <span id="user_id" data-id="8687"></span>
-
-    <!-- Progress vs Score -->
-
-    <!-- Task Body -->
-    <p>Fix this code and make it work.</p>
-
-<pre><code>const class2019 = new HolbertonClass(2019, 'San Francisco');
-const class2020 = new HolbertonClass(2020, 'San Francisco');
-
-export class HolbertonClass {
-  constructor(year, location) {
-    this._year = year;
-    this._location = location;
-  }
-
-  get year() {
-    return this._year;
-  }
-
-  get location() {
-    return this._location;
-  }
+return fullBudget;
 }
-
-const student1 = new StudentHolberton('Guillaume', 'Salva', class2020);
-const student2 = new StudentHolberton('John', 'Doe', class2020);
-const student3 = new StudentHolberton('Albert', 'Clinton', class2019);
-const student4 = new StudentHolberton('Donald', 'Bush', class2019);
-const student5 = new StudentHolberton('Jason', 'Sandler', class2019);
-
-export class StudentHolberton {
-  constructor(firstName, lastName) {
-    this._firstName = firstName;
-    this._lastName = lastName;
-    this._holbertonClass = holbertonClass;
-  }
-
-  get fullName() {
-    return `${this._firstName} ${this._lastName}`;
-  }
-
-  get holbertonClass() {
-    return this.holbertonClass;
-  }
-
-  get fullStudentDescription() {
-    return `${self._firstName} ${self._lastName} - ${self._holbertonClass.year} - ${self._holbertonClass.location}`;
-  }
-}
-
-
-export const listOfStudents = [student1, student2, student3, student4, student5];
 </code></pre>
 
-<p>Result:</p>
+<p>Execution:</p>
 
 <pre><code>bob@dylan:~$ cat 9-main.js
-import listOfStudents from "./9-hoisting.js";
+import getFullBudgetObject from &#39;./9-getFullBudget.js&#39;;
 
-console.log(listOfStudents);
+const fullBudget = getFullBudgetObject(20, 50, 10);
 
-const listPrinted = listOfStudents.map(
-    student =&gt; student.fullStudentDescription
-);
-
-console.log(listPrinted)
+console.log(fullBudget.getIncomeInDollars(fullBudget.income));
+console.log(fullBudget.getIncomeInEuros(fullBudget.income));
 
 bob@dylan:~$
 bob@dylan:~$ npm run dev 9-main.js
-[
-  StudentHolberton {
-    _firstName: 'Guillaume',
-    _lastName: 'Salva',
-    _holbertonClass: HolbertonClass { _year: 2020, _location: 'San Francisco' }
-  },
-  StudentHolberton {
-    _firstName: 'John',
-    _lastName: 'Doe',
-    _holbertonClass: HolbertonClass { _year: 2020, _location: 'San Francisco' }
-  },
-  StudentHolberton {
-    _firstName: 'Albert',
-    _lastName: 'Clinton',
-    _holbertonClass: HolbertonClass { _year: 2019, _location: 'San Francisco' }
-  },
-  StudentHolberton {
-    _firstName: 'Donald',
-    _lastName: 'Bush',
-    _holbertonClass: HolbertonClass { _year: 2019, _location: 'San Francisco' }
-  },
-  StudentHolberton {
-    _firstName: 'Jason',
-    _lastName: 'Sandler',
-    _holbertonClass: HolbertonClass { _year: 2019, _location: 'San Francisco' }
-  }
-]
-[
-  'Guillaume Salva - 2020 - San Francisco',
-  'John Doe - 2020 - San Francisco',
-  'Albert Clinton - 2019 - San Francisco',
-  'Donald Bush - 2019 - San Francisco',
-  'Jason Sandler - 2019 - San Francisco'
-]
+$20
+20 euros
 bob@dylan:~$
 </code></pre>
 
-  </div>
-
-  <div class="list-group">
-    <!-- Task URLs -->
-
-    <!-- Technical information -->
-      <div class="list-group-item">
-        <p><strong>Repo:</strong></p>
-        <ul>
-          <li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
-            <li>Directory: <code>ES6_classes</code></li>
-            <li>File: <code>9-hoisting.js</code></li>
-        </ul>
-      </div>
-
-    <!-- Self-paced manual review -->
-  </div>
-
-  <!-- Panel footer - Controls -->
-  <div class="panel-footer">
-      <div class="align-items-center d-flex justify-content-between">
-
-<div>
-
-  <button class="student-task-done-by btn btn-default btn-sm" data-task-id="21490" data-batch-id="558" data-toggle="modal" data-target="#task-21490-users-done-modal">
-    Help
-  </button>
-  <div class="modal fade users-done-modal" id="task-21490-users-done-modal" data-task-id="21490" data-batch-id="558">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Students who are done with "9. Hoisting"</h4>
-        </div>
-        <div class="modal-body">
-            <div class="list-group">
-            </div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <div class="error"></div>
-        </div>
-        </div>
-    </div>
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
-
-
-    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#sandboxes-modal"><i aria-hidden="true" class="fa fa-terminal "></i><span>Get a sandbox</span></button>
-
-</div>
-
-
-        <div class="fs-4">
-            <strong class="text-primary">
-              <span id="task-21490-score-info-score">0</span>/4
-            </strong>
-            <span class="text-muted">pts</span>
-        </div>
-      </div>
-
-
-  </div>
-</div>
-
-    </div>
-    <div data-role="task21491" data-position="11" id="task-num-10">
-      <div class="panel panel-default task-card " id="task-21491">
-  <span id="user_id" data-id="8687"></span>
-
-  <div class="panel-heading panel-heading-actions">
-    <h3 class="panel-title">
-      10. Vroom
-    </h3>
-
-    <div>
-        <span class="label label-info">
-          mandatory
-        </span>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <span id="user_id" data-id="8687"></span>
-
-    <!-- Progress vs Score -->
-
-    <!-- Task Body -->
-    <p>Implement a class named <code>Car</code>:</p>
-
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
 <ul>
-<li>Constructor attributes:
-
-<ul>
-<li><code>brand</code> (String)</li>
-<li><code>motor</code> (String)</li>
-<li><code>color</code> (String)</li>
-</ul></li>
-<li>Each attribute must be stored in an “underscore” attribute version (ex: <code>name</code> is stored in <code>_name</code>)</li>
-<li>Add a method named <code>cloneCar</code>. This method should return a new object of the class.</li>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>9-getFullBudget.js</code></li>
 </ul>
+</div>
 
-<p>Hint: Symbols in ES6</p>
+<h3 class="panel-title">
+10. For...of Loops
+</h3>
+
+Rewrite the function <code>appendToEachArrayValue</code> to use ES6&rsquo;s <code>for...of</code> operator. And don&rsquo;t forget that <code>var</code> is not ES6-friendly.</p>
+
+<pre><code>export default function appendToEachArrayValue(array, appendString) {
+for (var idx in array) {
+var value = array[idx];
+array[idx] = appendString + value;
+}
+
+return array;
+}
+</code></pre>
+
+<p>Execution:</p>
 
 <pre><code>bob@dylan:~$ cat 10-main.js
-import Car from "./10-car.js";
+import appendToEachArrayValue from &#39;./10-loops.js&#39;;
 
-class TestCar extends Car {}
-
-const tc1 = new TestCar("Nissan", "Turbo", "Pink");
-const tc2 = tc1.cloneCar();
-
-console.log(tc1);
-console.log(tc1 instanceof TestCar);
-
-console.log(tc2);
-console.log(tc2 instanceof TestCar);
-
-console.log(tc1 == tc2);
+console.log(appendToEachArrayValue([&#39;appended&#39;, &#39;fixed&#39;, &#39;displayed&#39;], &#39;correctly-&#39;));
 
 bob@dylan:~$
 bob@dylan:~$ npm run dev 10-main.js
-TestCar { _brand: 'Nissan', _motor: 'Turbo', _color: 'Pink' }
-true
-TestCar { _brand: undefined, _motor: undefined, _color: undefined }
-true
-false
+[ &#39;correctly-appended&#39;, &#39;correctly-fixed&#39;, &#39;correctly-displayed&#39; ]
 bob@dylan:~$
 </code></pre>
 
-  </div>
-
-  <div class="list-group">
-    <!-- Task URLs -->
-
-    <!-- Technical information -->
-      <div class="list-group-item">
-        <p><strong>Repo:</strong></p>
-        <ul>
-          <li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
-            <li>Directory: <code>ES6_classes</code></li>
-            <li>File: <code>10-car.js</code></li>
-        </ul>
-      </div>
-
-    <!-- Self-paced manual review -->
-  </div>
-
-  <!-- Panel footer - Controls -->
-  <div class="panel-footer">
-      <div class="align-items-center d-flex justify-content-between">
-
-<div>
-
-  <button class="student-task-done-by btn btn-default btn-sm" data-task-id="21491" data-batch-id="558" data-toggle="modal" data-target="#task-21491-users-done-modal">
-    Help
-  </button>
-  <div class="modal fade users-done-modal" id="task-21491-users-done-modal" data-task-id="21491" data-batch-id="558">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Students who are done with "10. Vroom"</h4>
-        </div>
-        <div class="modal-body">
-            <div class="list-group">
-            </div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <div class="error"></div>
-        </div>
-        </div>
-    </div>
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
+<ul>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>10-loops.js</code></li>
+</ul>
+</div>
 
+<h3 class="panel-title">
+11. Iterator
+</h3>
 
-    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#sandboxes-modal"><i aria-hidden="true" class="fa fa-terminal "></i><span>Get a sandbox</span></button>
+Write a function named <code>createEmployeesObject</code> that will receive two arguments:</p>
+
+<ul>
+<li><code>departmentName</code> (String)</li>
+<li><code>employees</code> (Array of Strings)</li>
+</ul>
+
+<pre><code>export default function createEmployeesObject(departmentName, employees) {
+
+}
+</code></pre>
+
+<p>The function should return an object with the following format:</p>
+
+<pre><code>{
+$departmentName: [
+$employees,
+],
+}
+</code></pre>
+
+<p>Execution:</p>
+
+<pre><code>bob@dylan:~$ cat 11-main.js
+import createEmployeesObject from &#39;./11-createEmployeesObject.js&#39;;
+
+console.log(createEmployeesObject(&quot;Software&quot;, [ &quot;Bob&quot;, &quot;Sylvie&quot; ]));
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 11-main.js
+{ Software: [ &#39;Bob&#39;, &#39;Sylvie&#39; ] }
+bob@dylan:~$
+</code></pre>
 
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
-        <div class="fs-4">
-            <strong class="text-primary">
-              <span id="task-21491-score-info-score">0</span>/3
-            </strong>
-            <span class="text-muted">pts</span>
-        </div>
-      </div>
-
-
-  </div>
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
+<ul>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>11-createEmployeesObject.js</code></li>
+</ul>
 </div>
 
-    </div>
+<h3 class="panel-title">
+12. Let&#39;s create a report object
+</h3>
 
-    <p class="lg-gap">
-      <a class="btn btn-primary btn-block" data-confirm="Are you sure? Make sure you focused on the mandatory tasks first" href="/projects/2347/unlock_optionals">Done with the mandatory tasks? Unlock 1 advanced task now!</a>
-    </p>
+Write a function named <code>createReportObject</code> whose parameter, <code>employeesList</code>, is the return value of the previous function <code>createEmployeesObject</code>.</p>
 
+<pre><code>export default function createReportObject(employeesList) {
 
-          <div class="gap">
-  <div data-react-class="projects/ProjectReview" data-react-props="{&quot;correction&quot;:{&quot;statusURI&quot;:&quot;/corrections/877841/status_self_paced.json&quot;,&quot;startReviewURI&quot;:&quot;/corrections/877841/start_auto_review_self_paced.json&quot;},&quot;csrfToken&quot;:&quot;-VaFR3Bq38axeR5uh6Iz1neBby-w3uqZwTyREEqiGWrxyvVLKDVPd6VMbTE48DoR85uxODVlNZN0_NE0Fh9x8w&quot;,&quot;nextProject&quot;:{&quot;details&quot;:{&quot;curriculum_completed&quot;:false,&quot;message&quot;:&quot;Next project: ES6 data manipulation&quot;,&quot;uri&quot;:&quot;/projects/2348&quot;},&quot;fetchURI&quot;:&quot;/projects/2347/next&quot;},&quot;pollingInterval&quot;:10000,&quot;progress&quot;:{&quot;auto_review&quot;:{&quot;can_execute&quot;:true,&quot;completion&quot;:{&quot;count&quot;:0,&quot;is_completed&quot;:false,&quot;percentage&quot;:0.0},&quot;inability_to_execute_reason&quot;:null},&quot;tasks&quot;:[{&quot;id&quot;:21481,&quot;progress_score&quot;:{&quot;progress&quot;:0.0,&quot;score&quot;:0.0},&quot;score_info&quot;:{&quot;passed&quot;:false,&quot;points&quot;:2,&quot;score&quot;:0}},{&quot;id&quot;:21482,&quot;progress_score&quot;:{&quot;progress&quot;:0.0,&quot;score&quot;:0.0},&quot;score_info&quot;:{&quot;passed&quot;:false,&quot;points&quot;:3,&quot;score&quot;:0}},{&quot;id&quot;:21483,&quot;progress_score&quot;:{&quot;progress&quot;:0.0,&quot;score&quot;:0.0},&quot;score_info&quot;:{&quot;passed&quot;:false,&quot;points&quot;:5,&quot;score&quot;:0}},{&quot;id&quot;:21484,&quot;progress_score&quot;:{&quot;progress&quot;:0.0,&quot;score&quot;:0.0},&quot;score_info&quot;:{&quot;passed&quot;:false,&quot;points&quot;:3,&quot;score&quot;:0}},{&quot;id&quot;:21485,&quot;progress_score&quot;:{&quot;progress&quot;:0.0,&quot;score&quot;:0.0},&quot;score_info&quot;:{&quot;passed&quot;:false,&quot;points&quot;:3,&quot;score&quot;:0}},{&quot;id&quot;:21486,&quot;progress_score&quot;:{&quot;progress&quot;:0.0,&quot;score&quot;:0.0},&quot;score_info&quot;:{&quot;passed&quot;:false,&quot;points&quot;:3,&quot;score&quot;:0}},{&quot;id&quot;:21487,&quot;progress_score&quot;:{&quot;progress&quot;:0.0,&quot;score&quot;:0.0},&quot;score_info&quot;:{&quot;passed&quot;:false,&quot;points&quot;:2,&quot;score&quot;:0}},{&quot;id&quot;:21488,&quot;progress_score&quot;:{&quot;progress&quot;:0.0,&quot;score&quot;:0.0},&quot;score_info&quot;:{&quot;passed&quot;:false,&quot;points&quot;:2,&quot;score&quot;:0}},{&quot;id&quot;:21489,&quot;progress_score&quot;:{&quot;progress&quot;:0.0,&quot;score&quot;:0.0},&quot;score_info&quot;:{&quot;passed&quot;:false,&quot;points&quot;:3,&quot;score&quot;:0}},{&quot;id&quot;:21490,&quot;progress_score&quot;:{&quot;progress&quot;:0.0,&quot;score&quot;:0.0},&quot;score_info&quot;:{&quot;passed&quot;:false,&quot;points&quot;:4,&quot;score&quot;:0}},{&quot;id&quot;:21491,&quot;progress_score&quot;:{&quot;progress&quot;:0.0,&quot;score&quot;:0.0},&quot;score_info&quot;:{&quot;passed&quot;:false,&quot;points&quot;:3,&quot;score&quot;:0}}],&quot;summary&quot;:{&quot;completion&quot;:0.0,&quot;score&quot;:{&quot;mandatory&quot;:null,&quot;optional&quot;:null}},&quot;can_skip&quot;:true,&quot;can_start_peer_review&quot;:false},&quot;peerReview&quot;:null,&quot;project&quot;:{&quot;completion&quot;:0.0,&quot;id&quot;:2347,&quot;index&quot;:0,&quot;isAccessible&quot;:true,&quot;isOptional&quot;:false,&quot;imagePath&quot;:&quot;/assets/pathway/002_color-261c5d8dcd9df7930ced5c51da7ac8a20266ad8b3861fea9ce55fbc3a4df3fd7.png&quot;,&quot;name&quot;:&quot;ES6 classes&quot;,&quot;score&quot;:{&quot;mandatory&quot;:null,&quot;optional&quot;:null},&quot;tasksCount&quot;:1},&quot;skipURI&quot;:&quot;/corrections/877841/skip&quot;,&quot;taskLevelReviewTypeHumanized&quot;:&quot;Your score will be updated as you progress.&quot;}" data-react-cache-id="projects/ProjectReview-0"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">Score</h3></div><div class="panel-body"><div class="align-items-center d-flex gap-5"><div class="pathway" style="padding: 10px 30px 40px;"><div class="project-circle " style="border-radius: 100%; box-shadow: rgb(229, 230, 230) 10px 20px 10px; height: 125px; margin: auto; padding: 5px; width: 125px;"><div data-test-id="CircularProgressbarWithChildren"><div style="position: relative; width: 100%; height: 100%;"><svg class="CircularProgressbar " viewBox="0 0 100 100" data-test-id="CircularProgressbar" style="height: 115px; vertical-align: middle; width: 115px;"><path class="CircularProgressbar-trail" d="
-      M 50,50
-      m 0,-48.5
-      a 48.5,48.5 0 1 1 0,97
-      a 48.5,48.5 0 1 1 0,-97
-    " stroke-width="3" fill-opacity="0" style="stroke-dasharray: 304.734px, 304.734px; stroke-dashoffset: 0px;"></path><path class="CircularProgressbar-path" d="
-      M 50,50
-      m 0,-48.5
-      a 48.5,48.5 0 1 1 0,97
-      a 48.5,48.5 0 1 1 0,-97
-    " stroke-width="3" fill-opacity="0" style="stroke-dasharray: 304.734px, 304.734px; stroke-dashoffset: 304.734px;"></path></svg><div data-test-id="CircularProgressbarWithChildren__children" style="position: absolute; width: 100%; height: 100%; margin-top: -100%; display: flex; flex-direction: column; justify-content: center; align-items: center;"><div style="height: 100%; position: absolute; transform: rotate(0turn);"><div class="circular-progress-bar-radial-separator" style="height: 4%; width: 8px;"></div></div><div class="position-relative"><span data-container="body" data-html="false" data-placement="auto top" data-toggle="tooltip" title="" data-original-title="ES6 classes"><div class="align-items-center d-flex justify-content-center project-circle-body active" style="border-radius: 100%; height: 100px; width: 100px;"><img alt="Project badge" src="/assets/pathway/002_color-261c5d8dcd9df7930ced5c51da7ac8a20266ad8b3861fea9ce55fbc3a4df3fd7.png" width="60%"></div></span></div></div></div></div></div></div><div style="flex-basis: 100%;"><p class="mb-2 text-primary"><span>Your score will be updated as you progress.</span></p><p>Please review <strong>all the tasks</strong> before you start the peer review.</p><div class="d-flex flex-wrap gap-3 justify-content-between mt-4"><div class="btn-group"><button class="btn btn-primary" id="project-launch-review-btn"><i aria-hidden="true" class="fa fa-paper-plane"></i><span class="ml-2">Review all the tasks</span></button></div><div></div></div></div></div></div></div></div>
+}
+</code></pre>
+
+<p><code>createReportObject</code> should return an object containing the key <code>allEmployees</code> and a method property called <code>getNumberOfDepartments</code>. </p>
+
+<p><code>allEmployees</code> is a key that maps to an object containing the department name and a list of all the employees in that department. If you&rsquo;re having trouble, use the spread syntax.</p>
+
+<p>The method property receives <code>employeesList</code> and returns the number of departments. I would suggest suggest thinking back to the ES6 method property syntax.</p>
+
+<pre><code>{
+allEmployees: {
+engineering: [
+&#39;John Doe&#39;,
+&#39;Guillaume Salva&#39;,
+],
+},
+};
+</code></pre>
+
+<p>Execution:</p>
+
+<pre><code>bob@dylan:~$ cat 12-main.js
+import createEmployeesObject from &#39;./11-createEmployeesObject.js&#39;;
+import createReportObject from &#39;./12-createReportObject.js&#39;;
+
+const employees = {
+...createEmployeesObject(&#39;engineering&#39;, [&#39;Bob&#39;, &#39;Jane&#39;]),
+...createEmployeesObject(&#39;marketing&#39;, [&#39;Sylvie&#39;])
+};
+
+const report = createReportObject(employees);
+console.log(report.allEmployees);
+console.log(report.getNumberOfDepartments(report.allEmployees));
+
+bob@dylan:~$
+bob@dylan:~$ npm run dev 12-main.js
+{ engineering: [ &#39;Bob&#39;, &#39;Jane&#39; ], marketing: [ &#39;Sylvie&#39; ] }
+2
+bob@dylan:~$
+</code></pre>
+
 </div>
 
+<div class="list-group">
+<!-- Task URLs -->
 
+<!-- Technical information -->
+<div class="list-group-item">
+<p><strong>Repo:</strong></p>
+<ul>
+<li>GitHub repository: <code>holbertonschool-web_back_end</code></li>
+<li>Directory: <code>ES6_basic</code></li>
+<li>File: <code>12-createReportObject.js</code></li>
+</ul>
+</div>
 
-          <div class="modal fade" id="container-specs-modal"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button><h4 class="modal-title">Recommended Sandbox</h4></div><div class="modal-body"><div data-react-class="user_containers/ContainerSpecs" data-react-props="{&quot;containerModelName&quot;:&quot;Sandbox&quot;,&quot;containerSpecs&quot;:[{&quot;description&quot;:&quot;\u003cp\u003eUbuntu 18.04 with Node 12\u003c/p\u003e\n&quot;,&quot;id&quot;:29,&quot;name&quot;:&quot;Ubuntu 18.04 - Node 12&quot;,&quot;online&quot;:true}],&quot;containersLimit&quot;:5,&quot;csrfToken&quot;:&quot;KglpOIG0PblqtNwjXR607_JFemX6vvBx--KQ1XSRGiAilRk02eutCH6Br3ziTL0odl-kcn8FL3tOItDxKCxyuQ&quot;,&quot;startStatusURI&quot;:&quot;/user_containers/start_status.json&quot;,&quot;startURI&quot;:&quot;/user_containers/start.json&quot;}" data-react-cache-id="user_containers/ContainerSpecs-0"><div><div class="d-flex gap-4 sandboxes-filters"><a class="btn btn-outline-primary"><i aria-hidden="true" class="fa fa-filter"></i><span class="ml-2">Running only</span></a><div class="align-items-center d-flex" style="position: relative; width: 100%;"><input class="form-control" placeholder="Search for an image ..." type="search" value=""></div></div><div class="mt-3"><h3>1 image<small class="ml-2">(0/5 Sandboxes spawned)</small></h3></div><div class="mt-3"><div class="panel panel-default"><div class="panel-body"><div class="align-items-center d-flex flex-wrap justify-content-between"><div><h3 class="mt-0"><i aria-hidden="true" class="fa fa-terminal text-danger"></i><span class="ml-2">Ubuntu 18.04 - Node 12</span></h3><div class="mt-2 text-muted"><p>Ubuntu 18.04 with Node 12</p>
-</div></div><div class="d-flex flex-wrap gap-5"><a class="btn btn-success"><i aria-hidden="true" class="fa fa-play"></i><span class="ml-2">Run</span></a></div></div></div></div></div></div></div></div></div></div></div>
-          <div class="modal fade" id="sandboxes-modal"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button><h4 class="modal-title">Recommended Sandboxes</h4></div><div class="modal-body"><div data-react-class="user_sandboxes/Sandboxes" data-react-props="{&quot;images&quot;:[{&quot;id&quot;:16,&quot;name&quot;:&quot;Ubuntu 22.04 LTS&quot;,&quot;aws_region&quot;:&quot;US East (N. Virginia)\t&quot;},{&quot;id&quot;:50,&quot;name&quot;:&quot;Ubuntu 18.04 LTS&quot;,&quot;aws_region&quot;:&quot;US East (N. Virginia)\t&quot;},{&quot;id&quot;:17,&quot;name&quot;:&quot;Ubuntu 22.04 LTS&quot;,&quot;aws_region&quot;:&quot;South America (São Paulo)&quot;},{&quot;id&quot;:51,&quot;name&quot;:&quot;Ubuntu 18.04 LTS&quot;,&quot;aws_region&quot;:&quot;South America (São Paulo)&quot;},{&quot;id&quot;:14,&quot;name&quot;:&quot;Ubuntu 22.04 LTS&quot;,&quot;aws_region&quot;:&quot;Europe (Paris)&quot;},{&quot;id&quot;:52,&quot;name&quot;:&quot;Ubuntu 18.04 LTS&quot;,&quot;aws_region&quot;:&quot;Europe (Paris)&quot;},{&quot;id&quot;:18,&quot;name&quot;:&quot;Ubuntu 22.04 LTS&quot;,&quot;aws_region&quot;:&quot;Asia Pacific (Sydney)&quot;},{&quot;id&quot;:53,&quot;name&quot;:&quot;Ubuntu 18.04 LTS&quot;,&quot;aws_region&quot;:&quot;Asia Pacific (Sydney)&quot;}],&quot;sandboxesUri&quot;:&quot;/user_sandboxes&quot;,&quot;csrfToken&quot;:&quot;MdhA_8xq7q1zc4RgYiZu2bC1zTs9tVXt4P8FWcEzac05RDDzlDV-HGdG9z_ddGceNK8TLLgOiudVP0V9nY4BVA&quot;,&quot;maxNumberOfContainers&quot;:2}" data-react-cache-id="user_sandboxes/Sandboxes-0"><div class="d-flex flex-column"><div class="dropdown pull-right" style="align-self: end;"><button aria-expanded="false" aria-haspopup="true" class="btn btn-lg btn-primary dropdown-toggle" data-toggle="dropdown" type="button">New sandbox <span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right"><li class="divider" role="separator"></li><li class="dropdown-header">US East (N. Virginia)	</li><li><a role="button">Ubuntu 18.04 LTS</a></li><li><a role="button">Ubuntu 22.04 LTS</a></li><li class="divider" role="separator"></li><li class="dropdown-header">South America (São Paulo)</li><li><a role="button">Ubuntu 18.04 LTS</a></li><li><a role="button">Ubuntu 22.04 LTS</a></li><li class="divider" role="separator"></li><li class="dropdown-header">Europe (Paris)</li><li><a role="button">Ubuntu 18.04 LTS</a></li><li><a role="button">Ubuntu 22.04 LTS</a></li><li class="divider" role="separator"></li><li class="dropdown-header">Asia Pacific (Sydney)</li><li><a role="button">Ubuntu 18.04 LTS</a></li><li><a role="button">Ubuntu 22.04 LTS</a></li></ul></div><div class="mt-2 alert alert-info">No sandboxes yet!</div></div></div></div></div></div></div>
-
-      <div class="d-flex justify-content-around align-items-center">
-          <div>
-            <a data-toggle="tooltip" title="" class="btn btn-primary" role="button" href="/projects/2345" data-original-title="ES6 Basics">Previous project</a>
-          </div>
-          <form action="/corrections/877841/skip" method="post">
-            <input name="authenticity_token" type="hidden" value="I1gSxc5MKQ8-qW4io58-C6XvyuEzb7Xjz1X1wrKaJIsrxGLJlhO5viqcHX0czTfMIfUU9rbUaul6lbXm7idMEg">
-            <button class="btn btn-warning" type="submit">
-              Next project
-            </button>
-          </form>
-      </div>
-  </div>
+</details>
