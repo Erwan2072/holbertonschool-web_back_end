@@ -1,7 +1,7 @@
 # holbertonschool-web_back_end
 ## ES6 Basics
 
-    <img src="https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2019/12/08806026ef621f900121.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20240716%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20240716T063113Z&amp;X-Amz-Expires=86400&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=6768a99f3a2cd74b3a69fd1e99e43e073861a8f4872fde49a8540259b3e0b6ee" alt="" loading="lazy" style="">
+<img src="https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2019/12/08806026ef621f900121.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20240716%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20240716T063113Z&amp;X-Amz-Expires=86400&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=6768a99f3a2cd74b3a69fd1e99e43e073861a8f4872fde49a8540259b3e0b6ee" alt="" loading="lazy" style="">
 
 <h2>Resources</h2>
 
