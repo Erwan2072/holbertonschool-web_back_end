@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """contient la définition de la fonction floor"""
 
