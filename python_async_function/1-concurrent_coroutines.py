@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
-"""
-Concurrently run multiple instances of the wait_random coroutine.
-"""
-import asyncio
-from 0-basic_async_syntax import wait_random
+""" Concurrently run multiple instances of the wait_random coroutine. """
 
-async def wait_n(n: int, max_delay: int) -> list:
-    """Spawns wait_random n times with the specified max_delay."""
-    tasks = [wait_random(max_delay) for _ in range(n)]
-    completed = []
-    for future in asyncio.as_completed(tasks):
-        result = await future
-        completed.append(result)
-    return completed
+import asyncio
+from typing import List
+
+
+wait_random = __import__('0-basic_async_syntax').wait_random
+
+
+async def wait_n(n: int, max_delay: int) -> List[float]:
+    """delay_n = await asyncio.gather(
+        *[wait_random(max_delay) for _ in range(n)])"""
+    list_of_delay = []
+    for turn in range(n):
+        list_of_delay.append(await wait_random(max_delay))
+    return sorted(list_of_delay)
