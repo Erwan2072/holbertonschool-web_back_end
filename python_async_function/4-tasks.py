@@ -4,8 +4,6 @@ and returns a list of these delays in ascending order.
 """
 import asyncio
 from typing import List
-
-
 task_wait_random = __import__('3-tasks').wait_random
 
 
