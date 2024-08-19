@@ -1,48 +1,68 @@
 #!/usr/bin/env python3
-""" Simple helper function for pagination. """
+"""
+Deletion-resilient hypermedia pagination
+"""
 
 import csv
-from typing import List
-
-
-def index_range(page: int, page_size: int) -> tuple:
-    """
-    Calculate the start and end index for a page and page size.
-    """
-    start_index = (page - 1) * page_size
-    end_index = page * page_size
-    return (start_index, end_index)
+import math
+from typing import List, Dict
 
 
 class Server:
     """
-    Server class to paginate
-    a database of popular baby names.
+    Server class to paginate a database of popular baby names.
     """
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
         self.__dataset = None
+        self.__indexed_dataset = None
 
     def dataset(self) -> List[List]:
-        """Return a list of the dataset, loading it if not already loaded."""
+        """
+        Cached dataset
+        """
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
-                self.__dataset = list(reader)[1:]  # Exclude header
+                dataset = [row for row in reader]
+            self.__dataset = dataset[1:]
+
         return self.__dataset
 
-    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """Return a page of the dataset."""
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page_size > 0
+    def indexed_dataset(self) -> Dict[int, List]:
+        """
+        Dataset indexed by sorting position, starting at 0
+        """
+        if self.__indexed_dataset is None:
+            dataset = self.dataset()
+            truncated_dataset = dataset[:1000]
+            self.__indexed_dataset = {
+                i: dataset[i] for i in range(len(dataset))
+            }
+        return self.__indexed_dataset
 
-        dataset = self.dataset()
-        start_index, end_index = index_range(page, page_size)
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
+        """
+        method return a dictionary with the following key-value pairs
+        """
 
-    # Check if the start_index is within the range of the dataset
-        if start_index >= len(dataset):
-            return []
+        start_index = index if index is not None else 0
+        end_index = start_index + page_size - 1
+        size_data = len(self.dataset())
 
-    # Return the appropriate page of the dataset
-        return dataset[start_index:end_index]
+        assert start_index >= 0
+        assert end_index < size_data
+
+        current_page = [self.dataset()[i] for i in range(start_index,
+                                                         min(end_index + 1,
+                                                             size_data))]
+
+        next_index = end_index + 1
+
+        return {
+            'index': start_index,
+            'data': current_page,
+            'page_size': page_size,
+            'next_index': next_index
+        }
