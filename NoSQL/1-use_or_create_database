@@ -1,6 +1,2 @@
-// 2-insert
-
-// Insert a document into the 'school' collection
-db.school.insertOne({
-    name: "Holberton school"
-});
+// 1-use_or_create_database
+use my_db
