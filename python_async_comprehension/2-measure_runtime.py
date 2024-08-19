@@ -4,7 +4,6 @@
 
 import asyncio
 wait_random = __import__('1-async_comprehension').wait_random
-from typing
 
 
 async def measure_runtime() -> float:
