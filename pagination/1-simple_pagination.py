@@ -38,8 +38,5 @@ class Server:
         assert isinstance(page_size, int) and page_size > 0,
         "page_size must be a positive integer"
 
-        dataset = self.dataset()
-        start_index, end_index = index_range(page, page_size)
-
-        # Return the appropriate page of the dataset
-        return dataset[start_index:end_index] if start_index < len(dataset) else []
+        start, end = index_range(page, page_size)
+        return self.dataset()[start:end]
