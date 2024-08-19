@@ -2,10 +2,11 @@
 """ Let's execute multiple coroutines at the same time with async """
 
 import asyncio
+import typing
 wait_random = __import__('0-async_generator').wait_random
 
 
-async def async_comprehension() -> list[float]:
+async def async_comprehension() -> typing.List[float]:
     """
     Collect 10 random numbers using an async
     comprehensing over async_generator
