@@ -14,3 +14,4 @@ process.stdin.on('end', () => {
 
 // S'assure que l'entrée standard reste ouverte pour l'entrée de l'utilisateur
 process.stdin.resume();
+ 
