@@ -1,16 +1,29 @@
-// Affiche le message de bienvenue
-console.log("Welcome to Holberton School, what is your name?");
+const { input, select } = require('@inquirer/prompts');
 
-// Écoute l'entrée de l'utilisateur
-process.stdin.on('data', (data) => {
-  const input = data.toString().trim(); // Nettoie l'entrée pour supprimer les espaces inutiles
-  console.log(`Your name is: ${input}`); // Affiche le nom de l'utilisateur
-});
+async function main() {
+  /* When I commented out the first two lines, the following code works properly */
+  const text = await input({ message: `your name?\n` });
+  console.log('inputText', text);
+  /**
+   * My code is omitted
+   */
 
-// Détecte la fin de l'entrée standard
-process.stdin.on('end', () => {
-  console.log("This important software is now closing"); // Affiche le message de fermeture
-});
+  /* When I used 'input', 'process.stdin.on' no longer works */
+  process.stdin.on('data', async inputs => {
+    let text = inputs.toString().trim();
+    if (!text) return;
+    switch (text) {
+      case 'cls':
+        console.clear();
+        break;
+      case 'bye':
+        process.exit(0);
+      default:
+        console.log('stdinText:', text);
+        /* I will do some other logic here, but I just streamlined it out */
+        break;
+    }
+  });
+}
 
-// S'assure que l'entrée standard reste ouverte pour l'entrée de l'utilisateur
-process.stdin.resume();
+main();
