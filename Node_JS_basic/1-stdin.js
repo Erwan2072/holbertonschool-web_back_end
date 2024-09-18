@@ -1,12 +1,56 @@
-// 1-stdin.js
-console.log("Welcome to Holberton School, what is your name?");
+const fs = require('fs');
 
-process.stdin.on('data', (data) => {
-  const inputName = data.toString().trim(); // Pour enlever les espaces ou sauts de ligne
-  console.log(`Your name is: ${inputName}`);
-  process.exit();
-});
+function countStudents(path) {
+  try {
+    // Lire le fichier de manière synchrone
+    const data = fs.readFileSync(path, 'utf8');
 
-process.on('exit', () => {
-  console.log("This important software is now closing");
-});
+    // Vérifier si le fichier est vide
+    if (!data) {
+      throw new Error('Cannot load the database');
+    }
+
+    // Séparer les lignes du fichier CSV
+    const lines = data.split('\n').filter(line => line.trim() !== '');
+
+    // Vérifier si le fichier contient au moins une ligne d'en-tête et des données
+    if (lines.length <= 1) {
+      throw new Error('Cannot load the database');
+    }
+
+    // Enlever la première ligne qui contient les en-têtes (firstname, lastname, age, field)
+    const headers = lines.shift(); // On peut ignorer cette valeur dans cette version
+
+    // Initialiser des objets pour compter les étudiants par domaine
+    const studentsByField = {};
+
+    // Traiter chaque ligne
+    for (const line of lines) {
+      const [firstname, lastname, age, field] = line.split(',');
+
+      // Vérifier que toutes les informations sont bien présentes
+      if (firstname && lastname && age && field) {
+        // Si le domaine n'existe pas encore dans notre objet, l'initialiser
+        if (!studentsByField[field]) {
+          studentsByField[field] = [];
+        }
+        // Ajouter l'étudiant à la liste du domaine correspondant
+        studentsByField[field].push(firstname);
+      }
+    }
+
+    // Compter le nombre total d'étudiants
+    const totalStudents = Object.values(studentsByField).reduce((acc, curr) => acc + curr.length, 0);
+    console.log(`Number of students: ${totalStudents}`);
+
+    // Afficher les informations pour chaque domaine
+    for (const [field, students] of Object.entries(studentsByField)) {
+      console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
+    }
+  } catch (error) {
+    // En cas d'erreur (par exemple, fichier non trouvé ou vide), afficher le message d'erreur
+    throw new Error('Cannot load the database');
+  }
+}
+
+module.exports = countStudents;
