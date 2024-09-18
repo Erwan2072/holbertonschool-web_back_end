@@ -1,14 +1,18 @@
-const express = require('express');
-const routes = require('./routes/index');
+import AppController from '../controllers/AppController';
+import StudentsController from '../controllers/StudentsController';
 
-const app = express();
-const port = 1245;
+/**
+ * Binds the routes to the appropriate handler in the
+ * given Express application.
+ * @param {Express} app The Express application.
+ * @author Bezaleel Olakunori <https://github.com/B3zaleel>
+ */
 
-app.use('/', routes);
+const mapRoutes = (app) => {
+  app.get('/', AppController.getHomepage);
+  app.get('/students', StudentsController.getAllStudents);
+  app.get('/students/:major', StudentsController.getAllStudentsByMajor);
+};
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
-
-// Utilisez `module.exports` au lieu de `export default`
-module.exports = app;
+export default mapRoutes;
+module.exports = mapRoutes;
