@@ -1,18 +1,43 @@
 #!/usr/bin/env python3
 """
-function called filter_datum that returns the log message obfuscated
-"""
+Task 0: Regex-ing
 
-import re
-from typing import List
+This module provides a function to obfuscate specific fields in log messages.
+"""
 import logging
+import re
+from typing import List, Tuple
 import os
 import mysql.connector
-from mysql.connector import connection
 
-PII_FIELDS = ("name", "email", "password", "phone", "ssn")
+PII_FIELDS: Tuple[str, ...] = ("name", "email", "phone", "ssn", "password")
 
-LOG_FILE = 'filtered_user_data.log'
+
+def filter_datum(
+    fields: List[str],
+    redaction: str,
+    message: str,
+    separator: str
+) -> str:
+    """
+    Returns the log message obfuscated.
+
+    Args:
+        fields (List[str]): A list of strings representing all fields
+            to obfuscate.
+        redaction (str): A string representing by what the field will
+            be obfuscated.
+        message (str): A string representing the log line.
+        separator (str): A string representing by which character is
+            separating all fields in the log line.
+
+    Returns:
+        str: The obfuscated log message.
+    """
+    for field in fields:
+        message = re.sub(rf'{field}=[^{separator}]*',
+                         f'{field}={redaction}', message)
+    return message
 
 
 class RedactingFormatter(logging.Formatter):
@@ -25,115 +50,95 @@ class RedactingFormatter(logging.Formatter):
 
     def __init__(self, fields: List[str]):
         """
-        Initialize the formatter with a list of fields to redact.
-
-        Args:
-            fields (List[str]): The fields to obfuscate in the log messages.
+        Initialize the formatter with specific fields to redact.
         """
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
         """
-        Format the log record, redacting sensitive fields.
-
-        Args:
-            record (logging.LogRecord): The log record to format.
-
-        Returns:
-            str: The formatted log record with sensitive fields redacted.
+        Format the log record, redacting specified fields.
         """
-        original_message = super(RedactingFormatter, self).format(record)
-        redacted_message = filter_datum(
-            self.fields, self.REDACTION, original_message, self.SEPARATOR
-        )
-        return redacted_message
-
-
-def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
-    """Obfuscates sensitive data in a log message."""
-    pattern = rf"({'|'.join(map(re.escape, fields))})=([^{separator}]*)"
-    return re.sub(pattern, lambda m: f"{m.group(1)}={redaction}", message)
-
+        record.msg = filter_datum(
+            self.fields, self.REDACTION, record.msg, self.SEPARATOR)
+        return super().format(record)
 
 
 def get_logger() -> logging.Logger:
-    """Creates and returns a logger object configured with RedactingFormatter.
-
-    Returns:
-        logging.Logger: The configured logger object.
+    """
+    Create and configure a logger named 'user_data' with a StreamHandler
+        and RedactingFormatter.
     """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
     logger.propagate = False
 
-    # Create console handler and set level to info
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.INFO)
+    stream_handler = logging.StreamHandler()
+    formatter = RedactingFormatter(fields=PII_FIELDS)
+    stream_handler.setFormatter(formatter)
 
-    # Create and add formatter to the handler
-    formatter = RedactingFormatter(list(PII_FIELDS))
-    ch.setFormatter(formatter)
-
-    # Add handler to the logger
-    logger.addHandler(ch)
-
+    logger.addHandler(stream_handler)
     return logger
 
 
-def get_db() -> connection.MySQLConnection:
+def get_db() -> mysql.connector.connection.MySQLConnection:
     """
-    Connect to a secure MySQL database using credentials from environment
-    variables.
+    Connect to the MySQL database using credentials from environment variables.
 
     Returns:
-        MySQLConnection: A connection object to the MySQL database.
+        mysql.connector.connection.MySQLConnection: Database connector object.
     """
-    db_username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
-    db_password = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
-    db_host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
-    db_name = os.getenv('PERSONAL_DATA_DB_NAME')
+    # Get credentials from environment variables
+    username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+    password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.getenv("PERSONAL_DATA_DB_NAME")
 
-    conn = mysql.connector.connect(
-        user=db_username,
-        password=db_password,
-        host=db_host,
-        database=db_name
-    )
-
-    return conn
+    # Connect to the database
+    try:
+        db = mysql.connector.connect(
+            user=username,
+            password=password,
+            host=host,
+            database=db_name
+        )
+        return db
+    except mysql.connector.Error as err:
+        print(f"Error connecting to MySQL: {err}")
+        raise
 
 
 def main():
-    # Set up logging
-    logging.basicConfig(filename=LOG_FILE, level=logging.INFO)
+    """
+    Main function to retrieve data from the users table and log it securely.
+    """
+    # Configure logger
     logger = get_logger()
 
-    # Get database connection
-    try:
-        db = get_db()
-        cursor = db.cursor()
+    # Connect to database
+    db = get_db()
+    cursor = db.cursor()
 
+    try:
         # Retrieve all rows from users table
-        cursor.execute("SELECT * FROM users;")
+        cursor.execute("SELECT * FROM users")
         rows = cursor.fetchall()
 
-        # Log each row in the filtered format
+        # Log each row securely
         for row in rows:
+            # Construct the log message
             log_message = "; ".join(
-                f"{key}={value}"
-                for key, value in zip(cursor.column_names, row)
-            )
+                [f"{field}={value}" for field, value in zip(cursor.column_names, row)])
+            log_message += ";"  # Add semicolon at the end
             logger.info(log_message)
 
+    except mysql.connector.Error as err:
+        logger.error(f"Error fetching data from MySQL: {err}")
+
+    finally:
+        # Clean up resources
         cursor.close()
         db.close()
-
-    except mysql.connector.Error as err:
-        logger.error(f"Error connecting to MySQL: {err}")
-
-    # Display filtered fields
-    logger.info("Filtered fields:\n" + "\n".join(PII_FIELDS))
 
 
 if __name__ == "__main__":
