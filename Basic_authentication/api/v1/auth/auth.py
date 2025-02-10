@@ -28,7 +28,6 @@ class Auth:
 
         return normalized_path not in normalized_excluded
 
-
     def authorization_header(self, request=None) -> str:
         """ Returns None for now (to be implemented later) """
         return None
