@@ -1,36 +1,51 @@
 #!/usr/bin/env python3
 """
-filtered_logger module
+function called filter_datum that returns the log message obfuscated
 """
-import logging
+
 import re
+from typing import List
+import logging
 import os
 import mysql.connector
-from mysql.connector.connection import MySQLConnection
+from mysql.connector import connection
 
-def filter_datum(fields, redaction, message, separator):
-    """
-    Returns the log message obfuscated by replacing field values with a redacted string.
-    """
-    pattern = f'({"|".join(fields)})=[^\{separator}]*'
-    return re.sub(pattern, lambda m: f"{m.group(1)}={redaction}", message)
+PII_FIELDS = ("name", "email", "password", "phone", "ssn")
+
+LOG_FILE = 'filtered_user_data.log'
+
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class """
+    """ Redacting Formatter class
+        """
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields=None):
+    def __init__(self, fields: List[str]):
+        """
+        Initialize the formatter with a list of fields to redact.
+        """
         super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = fields if fields else []
+        self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        record.msg = filter_datum(self.fields, self.REDACTION, record.msg, self.SEPARATOR)
-        return super().format(record)
+        """
+        Format the log record, redacting sensitive fields..
+        """
+        original_message = super(RedactingFormatter, self).format(record)
+        redacted_message = filter_datum(self.fields, self.REDACTION,
+                                        original_message, self.SEPARATOR)
+        return redacted_message
 
-PII_FIELDS = ("name", "email", "phone", "ssn", "password")
+
+def filter_datum(fields: List[str], redaction: str, message: str,
+                 separator: str) -> str:
+    """Write a function called filter_datum that returns the log message"""
+    pattern = f"({'|'.join(fields)})=[^{separator}]*"
+    return re.sub(pattern, lambda m: f"{m.group().split('=')[0]}={redaction}",
+                  message)
 
 def get_logger() -> logging.Logger:
     """Creates and configures a logger named 'user_data'"""
