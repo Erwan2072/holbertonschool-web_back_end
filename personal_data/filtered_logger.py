@@ -50,15 +50,11 @@ class RedactingFormatter(logging.Formatter):
         return redacted_message
 
 
-def filter_datum(fields: List[str], redaction: str, message: str,
-                 separator: str) -> str:
-    """Write a function called filter_datum that returns the log message
-    obfuscated:
-    """
-    pattern = f"({'|'.join(fields)})=[^{separator}]*"
-    return re.sub(
-        pattern, lambda m: f"{m.group().split('=')[0]}={redaction}", message
-    )
+def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
+    """Obfuscates sensitive data in a log message."""
+    pattern = rf"({'|'.join(map(re.escape, fields))})=([^{separator}]*)"
+    return re.sub(pattern, lambda m: f"{m.group(1)}={redaction}", message)
+
 
 
 def get_logger() -> logging.Logger:
