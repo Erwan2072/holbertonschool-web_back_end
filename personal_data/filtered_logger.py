@@ -44,8 +44,9 @@ class RedactingFormatter(logging.Formatter):
             str: The formatted log record with sensitive fields redacted.
         """
         original_message = super(RedactingFormatter, self).format(record)
-        redacted_message = filter_datum(self.fields, self.REDACTION,
-                                        original_message, self.SEPARATOR)
+        redacted_message = filter_datum(
+            self.fields, self.REDACTION, original_message, self.SEPARATOR
+        )
         return redacted_message
 
 
@@ -53,19 +54,11 @@ def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
     """Write a function called filter_datum that returns the log message
     obfuscated:
-Arguments:
-fields: a list of strings representing all fields to obfuscate
-redaction: a string representing by what the field will be obfuscated
-message: a string representing the log line
-separator: a string representing by which character is separating all fields
-in the log line (message)
-The function should use a regex to replace occurrences of certain field values.
-filter_datum should be less than 5 lines long and use re.sub to perform the
-substitution with a single regex.
-"""
+    """
     pattern = f"({'|'.join(fields)})=[^{separator}]*"
-    return re.sub(pattern, lambda m: f"{m.group().split('=')[0]}={redaction}",
-                  message)
+    return re.sub(
+        pattern, lambda m: f"{m.group().split('=')[0]}={redaction}", message
+    )
 
 
 def get_logger() -> logging.Logger:
@@ -100,14 +93,11 @@ def get_db() -> connection.MySQLConnection:
     Returns:
         MySQLConnection: A connection object to the MySQL database.
     """
-    # Récupérer les informations d'identification de la base de données à
-    # partir des variables d'environnement
     db_username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
     db_password = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
     db_host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
     db_name = os.getenv('PERSONAL_DATA_DB_NAME')
 
-    # Établir une connexion à la base de données
     conn = mysql.connector.connect(
         user=db_username,
         password=db_password,
@@ -116,6 +106,7 @@ def get_db() -> connection.MySQLConnection:
     )
 
     return conn
+
 
 def main():
     # Set up logging
@@ -133,7 +124,10 @@ def main():
 
         # Log each row in the filtered format
         for row in rows:
-            log_message = "; ".join(f"{key}={value}" for key, value in zip(cursor.column_names, row))
+            log_message = "; ".join(
+                f"{key}={value}"
+                for key, value in zip(cursor.column_names, row)
+            )
             logger.info(log_message)
 
         cursor.close()
