@@ -13,15 +13,21 @@ class Auth:
     """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """ Returns False for now (will be updated later) """
-        return True
+        """
+        Determines if authentication is required for a given path
+        """
+
+        if path is None or excluded_paths is None or not excluded_paths:
+            return True
 
         # Normalize paths by ensuring they end with '/'
         normalized_path = path if path.endswith('/') else path + '/'
         normalized_excluded = [
-            p if p.endswith('/') else p + '/' for p in excluded_paths]
+            p if p.endswith('/') else p + '/' for p in excluded_paths
+        ]
 
         return normalized_path not in normalized_excluded
+
 
     def authorization_header(self, request=None) -> str:
         """ Returns None for now (to be implemented later) """
