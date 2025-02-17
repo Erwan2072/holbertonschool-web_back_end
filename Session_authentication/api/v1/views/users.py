@@ -18,24 +18,23 @@ def view_all_users() -> str:
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def view_one_user(user_id: str = None) -> str:
-    """ GET /api/v1/users/:id or /api/v1/users/me
+    """ GET /api/v1/users/:id
     Path parameter:
-      - User ID or "me"
+      - User ID
     Return:
       - User object JSON represented
-      - 404 if the User ID doesn't exist or if "me" is used without authentication
+      - 404 if the User ID doesn't exist
     """
     if user_id is None:
         abort(404)
-
     if user_id == "me":
         if request.current_user is None:
             abort(404)
-        return jsonify(request.current_user.to_json())
-
-    user = User.get(user_id)
-    if user is None:
-        abort(404)
+        user = request.current_user
+    else:
+        user = User.get(user_id)
+        if user is None:
+            abort(404)
     return jsonify(user.to_json())
 
 
@@ -45,7 +44,7 @@ def delete_user(user_id: str = None) -> str:
     Path parameter:
       - User ID
     Return:
-      - empty JSON if the User has been correctly deleted
+      - empty JSON is the User has been correctly deleted
       - 404 if the User ID doesn't exist
     """
     if user_id is None:
@@ -73,7 +72,7 @@ def create_user() -> str:
     error_msg = None
     try:
         rj = request.get_json()
-    except Exception:
+    except Exception as e:
         rj = None
     if rj is None:
         error_msg = "Wrong format"
@@ -116,7 +115,7 @@ def update_user(user_id: str = None) -> str:
     rj = None
     try:
         rj = request.get_json()
-    except Exception:
+    except Exception as e:
         rj = None
     if rj is None:
         return jsonify({'error': "Wrong format"}), 400
