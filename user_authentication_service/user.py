@@ -1,19 +1,19 @@
-#!/bin/usr/python3
+#!/usr/bin/env python3
 """
-User model SQLAlchemy definition
+User model using SQLAlchemy
 """
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
 class User(Base):
-    """
-    User model
-    """
+    """User model for authentication system"""
     __tablename__ = 'users'
+
     id = Column(Integer, primary_key=True)
-    email = Column(String(250), nullable=False)
-    first_name = Column(String(250))
-    last_name = Column(String(250))
-    password = Column(String(250))
+    email = Column(String(250), nullable=False, unique=True)
+    hashed_password = Column(String(250), nullable=False)  # Sécurisé avec un hash
+    session_id = Column(String(250), nullable=True)
+    reset_token = Column(String(250), nullable=True)
