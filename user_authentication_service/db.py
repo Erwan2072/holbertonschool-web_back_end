@@ -6,6 +6,8 @@ DB module
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 from user import Base, User
 
 
@@ -33,3 +35,28 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """Find the first user that matches the given criteria.
+
+        Raises:
+            NoResultFound: If no user matches the query.
+            InvalidRequestError: If the query is invalid.
+        """
+        if not kwargs:
+            raise InvalidRequestError("No arguments provided")
+
+        valid_columns = {column.key for column in User.__table__.columns}
+
+        # Vérifier si les colonnes demandées existent dans la table
+        for key in kwargs.keys():
+            if key not in valid_columns:
+                raise InvalidRequestError(f"Invalid column: {key}")
+
+        # Cherche l'utilisateur correspondant
+        query = self._session.query(User).filter_by(**kwargs).first()
+
+        if query is None:
+            raise NoResultFound("No user found matching the criteria")
+
+        return query
