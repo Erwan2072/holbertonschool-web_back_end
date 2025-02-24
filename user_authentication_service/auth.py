@@ -33,7 +33,7 @@ class Auth:
             # Stocké en string
             return new_user
 
-    def _hash_password(password: str) -> bytes:
+    def _hash_password(self,password: str) -> bytes:
         """
         Hashes a password using bcrypt.
         """
