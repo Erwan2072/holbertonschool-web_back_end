@@ -14,13 +14,23 @@ class Auth:
 
     def __init__(self):
         """
-        Initialize Auth instance with a database connection
+        Initialize Auth instance with a database connection.
         """
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
         """
         Register a new user with hashed password.
+
+        Args:
+            email (str): The user's email.
+            password (str): The user's password.
+
+        Returns:
+            User: The created user object.
+
+        Raises:
+            ValueError: If the email is already registered.
         """
         try:
             # Vérifier si l'utilisateur existe déjà
@@ -29,13 +39,18 @@ class Auth:
         except NoResultFound:
             # L'utilisateur n'existe pas, on peut l'ajouter
             hashed_password = self._hash_password(password)
-            new_user = self._db.add_user(email, hashed_password.decode())
-            # Stocké en string
+            new_user = self._db.add_user(email, hashed_password.decode())  # Stocké en string
             return new_user
 
-    def _hash_password(self,password: str) -> bytes:
+    def _hash_password(self, password: str) -> bytes:
         """
         Hashes a password using bcrypt.
+
+        Args:
+            password (str): The plain text password.
+
+        Returns:
+            bytes: The salted hash of the password.
         """
         salt = bcrypt.gensalt()
         return bcrypt.hashpw(password.encode(), salt)
