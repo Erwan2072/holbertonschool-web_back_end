@@ -34,23 +34,18 @@ class Auth:
             return new_user
 
     def valid_login(self, email: str, password: str) -> bool:
-        """
-        Validate login credentials.
-
-        Args:
-            email (str): The user's email.
-            password (str): The user's password.
-
-        Returns:
-            bool: True if credentials are valid, False otherwise.
+        """Validate the authentification of email and password provided
         """
         try:
-            # Vérifier si l'utilisateur existe
             user = self._db.find_user_by(email=email)
-            # Comparer le mot de passe hashé
-            return bcrypt.checkpw(
-                password.encode(),
-                user.hashed_password.encode()
-            )
+            stored_hashed_password = user.hashed_password
+
+            # Check if the provided password matches the stored hashed password
+            if bcrypt.checkpw(password.encode('utf-8'),
+                              stored_hashed_password):
+                return True
+            else:
+                return False
+
         except NoResultFound:
-            return False  # L'utilisateur n'existe pas
+            return False
