@@ -8,12 +8,14 @@ from user import User
 from sqlalchemy.orm.exc import NoResultFound
 import bcrypt
 
+
 def _hash_password(password: str) -> bytes:
     """
     Hashes a password using bcrypt.
     """
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(password.encode(), salt)
+
 
 class Auth:
     """Auth class to interact with the authentication database."""
@@ -38,4 +40,3 @@ class Auth:
             new_user = self._db.add_user(email, hashed_password.decode())
             # Stocké en string
             return new_user
-
