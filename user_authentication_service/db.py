@@ -60,3 +60,15 @@ class DB:
             raise NoResultFound("No user found matching the criteria")
 
         return query
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update the user's attributes"""
+        user = self.find_user_by(id=user_id)
+
+        for key, value in kwargs.items():
+            if key in User.__table__.columns:
+                setattr(user, key, value)
+            else:
+                raise ValueError(f"Invalid column: {key}")
+
+        self._session.commit()
