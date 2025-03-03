@@ -1,41 +1,33 @@
 #!/usr/bin/env python3
-"""
-2-app.py
-This module creates a Flask app with Flask-Babel
-configuration and dynamic locale selection.
-"""
-
+"""API Basic Flask app with Babel and locale selection"""
 from flask import Flask, render_template, request
-from flask_babel import Babel
+from flask_babel import Babel, get_locale
 
 
-class Config:
-    """Configuration class for setting up languages
-    and timezone for the Flask app.
-    """
-    LANGUAGES = ['en', 'fr']
-    BABEL_DEFAULT_LOCALE = 'en'
-    BABEL_DEFAULT_TIMEZONE = 'UTC'
+class Config():
+    """Config class for Babel"""
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
-babel = Babel(app, locale_selector=lambda: get_locale())
 
-
-def get_locale() -> str:
-    """Determine the best match for supported
-    languages based on request headers.
-    """
+def get_locale():
+    """Determine the best match with our supported languages."""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
+babel = Babel(app, locale_selector=get_locale)
+
+
 @app.route('/')
-def index() -> str:
-    """Render the home page with dynamic locale support."""
+def index():
+    """Return 2-index.html"""
     return render_template('2-index.html')
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run()
