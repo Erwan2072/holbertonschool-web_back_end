@@ -21,7 +21,8 @@ class Config:
 app = Flask(__name__)
 app.config.from_object(Config)
 
-babel = Babel(app, locale_selector=lambda: get_locale())
+# Initialize Babel with the correct locale selector
+babel = Babel(app, locale_selector=get_locale)
 
 
 def get_locale() -> str:
@@ -31,7 +32,7 @@ def get_locale() -> str:
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-@app.route('/')
+@app.route('/', methods=['GET'], strict_slashes=False)
 def index() -> str:
     """Render the home page with dynamic locale support."""
     return render_template('2-index.html')
