@@ -26,9 +26,10 @@ class Config:
 
 app = Flask(__name__)
 app.config.from_object(Config)
-babel = Babel(app)
+babel = Babel()
+babel.init_app(app, locale_selector=get_locale)
 
-@babel.locale_selector
+
 def get_locale() -> str:
     """Determine the best match for supported languages based on request and user settings."""
     locale = request.args.get('locale')
@@ -37,6 +38,7 @@ def get_locale() -> str:
     if g.get('user') and g.user.get('locale') in app.config['LANGUAGES']:
         return g.user['locale']
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
 
 @babel.timezone_selector
 def get_timezone() -> str:
@@ -49,11 +51,13 @@ def get_timezone() -> str:
     except UnknownTimeZoneError:
         return 'UTC'
 
+
 @app.before_request
 def before_request() -> None:
     """Retrieve the user information if login_as is provided in the request."""
     user_id = request.args.get('login_as', type=int)
     g.user = users.get(user_id) if user_id in users else None
+
 
 @app.route('/')
 def index() -> str:
@@ -62,6 +66,7 @@ def index() -> str:
                            home_title=_('home_title'),
                            home_header=_('home_header'),
                            logged_in_as=_('logged_in_as', username=g.user['name']) if g.user else _('not_logged_in'))
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
