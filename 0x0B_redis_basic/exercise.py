@@ -30,9 +30,9 @@ def call_history(method: Callable) -> Callable:
         input_key = method.__qualname__ + ":inputs"
         output_key = method.__qualname__ + ":outputs"
 
-        self._redis.rpush(input_key, str(args))  # Store input arguments
-        result = method(self, *args, **kwargs)   # Execute the method
-        self._redis.rpush(output_key, str(result))  # Store output
+        self._redis.rpush(input_key, str(args))
+        result = method(self, *args, **kwargs)
+        self._redis.rpush(output_key, str(result))
 
         return result
     return wrapper
@@ -75,12 +75,38 @@ class Cache:
         """
         Retrieve a UTF-8 string from Redis.
         """
-        data = self.get(key, fn=lambda d: d.decode('utf-8'))
-        return data
+        return self.get(key, fn=lambda d: d.decode('utf-8'))
 
     def get_int(self, key: str) -> Optional[int]:
         """
         Retrieve an integer from Redis.
         """
-        data = self.get(key, fn=int)
-        return data
+        return self.get(key, fn=int)
+
+
+# ✅ Correct placement: OUTSIDE the Cache class
+def replay(method: Callable) -> None:
+    """
+    Display the history of calls of a function.
+
+    Args:
+        method: The function whose history to display.
+    """
+    redis_instance = method.__self__._redis
+    method_name = method.__qualname__
+
+    input_key = f"{method_name}:inputs"
+    output_key = f"{method_name}:outputs"
+
+    inputs = redis_instance.lrange(input_key, 0, -1)
+    outputs = redis_instance.lrange(output_key, 0, -1)
+
+    call_count = redis_instance.get(method_name)
+    call_count_int = int(call_count.decode("utf-8")) if call_count else 0
+
+    print(f"{method_name} was called {call_count_int} times:")
+
+    for input_args, output in zip(inputs, outputs):
+        input_str = input_args.decode("utf-8")
+        output_str = output.decode("utf-8")
+        print(f"{method_name}(*{input_str}) -> {output_str}")
