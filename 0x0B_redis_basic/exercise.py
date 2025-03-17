@@ -14,10 +14,11 @@ def count_calls(method: Callable) -> Callable:
     Decorator to count how many times a method is called using Redis INCR.
     """
     @wraps(method)
-    def wrapper(self, *args, **kwargs):
+    def wrapper(*args, **kwargs):
+        self = args[0]  # Get instance
         key = method.__qualname__
         self._redis.incr(key)
-        return method(self, *args, **kwargs)
+        return method(*args, **kwargs)
     return wrapper
 
 
@@ -26,12 +27,13 @@ def call_history(method: Callable) -> Callable:
     Decorator to store the history of inputs and outputs for a method in Redis.
     """
     @wraps(method)
-    def wrapper(self, *args, **kwargs):
+    def wrapper(*args, **kwargs):
+        self = args[0]  # Get instance
         input_key = method.__qualname__ + ":inputs"
         output_key = method.__qualname__ + ":outputs"
 
-        self._redis.rpush(input_key, str(args))
-        result = method(self, *args, **kwargs)
+        self._redis.rpush(input_key, str(args[1:]))
+        result = method(*args, **kwargs)
         self._redis.rpush(output_key, str(result))
 
         return result
@@ -96,8 +98,8 @@ def replay(method: Callable) -> None:
     redis_instance = method.__self__._redis
     method_name = method.__qualname__
 
-    input_key = f"{method_name}:  inputs"
-    output_key = f"{method_name}: outputs"
+    input_key = f"{method_name}:inputs"
+    output_key = f"{method_name}:outputs"
 
     inputs = redis_instance.lrange(input_key, 0, -1)
     outputs = redis_instance.lrange(output_key, 0, -1)
@@ -105,7 +107,7 @@ def replay(method: Callable) -> None:
     call_count = redis_instance.get(method_name)
     call_count_int = int(call_count.decode("utf-8")) if call_count else 0
 
-    print(f"{method_name} was called {call_count_int} times: ")
+    print(f"{method_name} was called {call_count_int} times:")
 
     for input_args, output in zip(inputs, outputs):
         input_str = input_args.decode("utf-8")
