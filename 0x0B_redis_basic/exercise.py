@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Module for caching data using Redis with type support and call counting.
+Module for caching data using Redis with type support and call history tracking.
 """
 
 import redis
@@ -12,18 +12,29 @@ from functools import wraps
 def count_calls(method: Callable) -> Callable:
     """
     Decorator to count how many times a method is called using Redis INCR.
-
-    Args:
-        method: The method to decorate.
-
-    Returns:
-        The wrapped method with call count incrementing.
     """
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         key = method.__qualname__
         self._redis.incr(key)
         return method(self, *args, **kwargs)
+    return wrapper
+
+
+def call_history(method: Callable) -> Callable:
+    """
+    Decorator to store the history of inputs and outputs for a method in Redis lists.
+    """
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        input_key = method.__qualname__ + ":inputs"
+        output_key = method.__qualname__ + ":outputs"
+
+        self._redis.rpush(input_key, str(args))  # Store input arguments
+        result = method(self, *args, **kwargs)   # Execute the method
+        self._redis.rpush(output_key, str(result))  # Store output
+
+        return result
     return wrapper
 
 
@@ -39,16 +50,11 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         Store data in Redis with a random key and return the key.
-
-        Args:
-            data: The data to store (str, bytes, int, float).
-
-        Returns:
-            The key under which the data was stored.
         """
         key = str(uuid.uuid4())
         self._redis.set(key, data)
@@ -57,13 +63,6 @@ class Cache:
     def get(self, key: str, fn: Optional[Callable[[bytes], Union[str, int, float, bytes]]] = None) -> Union[str, int, float, bytes, None]:
         """
         Retrieve data from Redis and optionally apply a conversion function.
-
-        Args:
-            key: The Redis key.
-            fn: Optional function to convert the bytes data.
-
-        Returns:
-            The data, converted if fn is provided; raw bytes otherwise.
         """
         data = self._redis.get(key)
         if data is None:
@@ -75,12 +74,6 @@ class Cache:
     def get_str(self, key: str) -> Optional[str]:
         """
         Retrieve a UTF-8 string from Redis.
-
-        Args:
-            key: The Redis key.
-
-        Returns:
-            The decoded string if exists, else None.
         """
         data = self.get(key, fn=lambda d: d.decode('utf-8'))
         return data
@@ -88,12 +81,6 @@ class Cache:
     def get_int(self, key: str) -> Optional[int]:
         """
         Retrieve an integer from Redis.
-
-        Args:
-            key: The Redis key.
-
-        Returns:
-            The integer value if exists, else None.
         """
         data = self.get(key, fn=int)
         return data
