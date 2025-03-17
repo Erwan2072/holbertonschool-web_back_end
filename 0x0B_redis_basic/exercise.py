@@ -1,11 +1,30 @@
 #!/usr/bin/env python3
 """
-Module for caching data using Redis with type support.
+Module for caching data using Redis with type support and call counting.
 """
 
 import redis
 import uuid
 from typing import Union, Callable, Optional
+from functools import wraps
+
+
+def count_calls(method: Callable) -> Callable:
+    """
+    Decorator to count how many times a method is called using Redis INCR.
+
+    Args:
+        method: The method to decorate.
+
+    Returns:
+        The wrapped method with call count incrementing.
+    """
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        key = method.__qualname__
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return wrapper
 
 
 class Cache:
@@ -20,6 +39,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         Store data in Redis with a random key and return the key.
